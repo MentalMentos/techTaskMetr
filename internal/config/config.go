@@ -1,36 +1,27 @@
 package config
 
 import (
-	"os"
-	"sync"
+	"fmt"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
+	"log"
 )
 
-type Config struct {
-	ServerPort string
-	DBHost     string
-	DBPort     string
-	DBUser     string
-	DBPassword string
-	DBName     string
-}
-
-var (
-	config Config
-	once   sync.Once
+const (
+	host     = "localhost"
+	port     = 5432
+	user     = "user"
+	password = "1234"
+	dbName   = "postgres"
 )
 
-// New returns Config struct with env variables
-func New(logger logger.Logger) *Config {
-	once.Do(func() {
-		config = Config{
-			ServerPort: os.Getenv("server_port"),
-			DBHost:     os.Getenv("DB_HOST"),
-			DBPort:     os.Getenv("DB_PORT"),
-			DBUser:     os.Getenv("DB_USER"),
-			DBPassword: os.Getenv("DB_PASS"),
-			DBName:     os.Getenv("DB_NAME"),
-		}
-	})
-	logger.Info("Config", "Config init")
-	return &config
+func DatabaseConnection() *gorm.DB {
+	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbName)
+	//dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	if err != nil {
+		log.Fatalf("connect database error:%v", err)
+	}
+
+	return db
 }
