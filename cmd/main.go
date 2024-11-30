@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/MentalMentos/techTaskMetr.git/internal/config"
+	"github.com/MentalMentos/techTaskMetr.git/internal/controller"
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
