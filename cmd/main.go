@@ -2,7 +2,8 @@ package main
 
 import (
 	"github.com/MentalMentos/techTaskMetr.git/internal/config"
-	repo "github.com/MentalMentos/techTaskMetr.git/internal/repository"
+	"github.com/MentalMentos/techTaskMetr.git/internal/repository"
+	"github.com/MentalMentos/techTaskMetr.git/internal/service"
 	zaplogger "github.com/MentalMentos/techTaskMetr.git/pkg/logger/zap"
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin"
@@ -21,11 +22,12 @@ func main() {
 		ctx.JSON(http.StatusOK, "welcome home")
 	})
 
-	db := config.DatabaseConnection()
+	db := config.DatabaseConnection(myLogger)
 
-	postgres := repo.NewRepository(db)
+	repo := repository.New(db, myLogger)
 
-	// Keep Alive Postgres
-	//go db.KeepAlivePostgres(postgres, myLogger)
+	service := service.NewService(repo, myLogger)
+
+	go db.KeepAlivePostgres(postgres, myLogger)
 
 }

@@ -1,13 +1,20 @@
 package repository
 
-import "gorm.io/gorm"
+import (
+	"github.com/MentalMentos/techTaskMetr.git/internal/models"
+	"github.com/MentalMentos/techTaskMetr.git/pkg/logger"
+	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
+)
 
-type RepoImpl struct {
-	DB *gorm.DB
+type Task interface {
+	Create(ctx gin.Context, m *models.Task, logger logger.Logger) error
 }
 
-func NewRepository(DB *gorm.DB) *RepoImpl {
-	return &RepoImpl{
-		DB: DB,
-	}
+type Repository struct {
+	Task
+}
+
+func New(db *gorm.DB, myLogger logger.Logger) *Repository {
+	return &Repository{NewTaskRepo(db, myLogger)}
 }

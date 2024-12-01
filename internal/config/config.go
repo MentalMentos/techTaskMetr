@@ -2,10 +2,10 @@ package config
 
 import (
 	"fmt"
+	"github.com/MentalMentos/techTaskMetr.git/pkg/helpers"
 	"github.com/MentalMentos/techTaskMetr.git/pkg/logger"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"log"
 	"os"
 	"sync"
 )
@@ -38,21 +38,13 @@ func New(logger logger.Logger) *Config {
 	return &config
 }
 
-const (
-	host     = "localhost"
-	port     = 5432
-	user     = "user"
-	password = "1234"
-	dbName   = "postgres"
-)
-
-func DatabaseConnection() *gorm.DB {
-	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", host, port, user, password, dbName)
+func DatabaseConnection(logger logger.Logger) *gorm.DB {
+	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", config.Host, config.Port, config.Username, config.Password, config.DBName)
 	//dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		log.Fatalf("connect database error:%v", err)
+		logger.Fatal(helpers.PgPrefix, helpers.PgConnectFailed)
 	}
-
+	logger.Info(helpers.PgPrefix, "Database connection done")
 	return db
 }
