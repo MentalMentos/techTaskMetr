@@ -16,7 +16,7 @@ func main() {
 
 	myLogger := zaplogger.New()
 
-	Config := config.New(myLogger)
+	conf := config.New(myLogger)
 
 	router.GET("/", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, "welcome home")
@@ -27,7 +27,5 @@ func main() {
 	repo := repository.New(db, myLogger)
 
 	service := service.NewService(repo, myLogger)
-
-	go db.KeepAlivePostgres(postgres, myLogger)
 
 }

@@ -1,13 +1,28 @@
-version: "3.9"
+version: '3.8'
+
 services:
-  postgres:
-    image: postgres:latest
+  pg:
+    image: postgres:14-alpine3.17
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: tasks_db
+      - "POSTGRES_DB=${PG_DATABASE_NAME}"
+      - "POSTGRES_USER=${PG_USER}"
+      - "POSTGRES_PASSWORD=${PG_PASSWORD}"
     ports:
-      - "5432:5432"
+      - "${PG_PORT}:5432"
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+
+  migrator:
+    build:
+      context: .
+      dockerfile: migration.Dockerfile
+    depends_on:
+      - pg
+    environment:
+      DB_HOST: localhost
+      PG_USER: ${PG_USER}
+      PG_PASSWORD: ${PG_PASSWORD}
+      PG_DATABASE_NAME: ${PG_DATABASE_NAME}
 
   backend:
     build:
@@ -15,9 +30,9 @@ services:
     environment:
       DB_HOST: postgres
       DB_PORT: 5432
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      DB_NAME: tasks_db
+      DB_USER: user
+      DB_PASSWORD: 1234
+      DB_NAME: postgres
     ports:
       - "8080:8080"
     depends_on:
@@ -34,3 +49,5 @@ services:
     image: grafana/grafana:latest
     ports:
       - "3000:3000"
+volumes:
+  postgres_volume:
