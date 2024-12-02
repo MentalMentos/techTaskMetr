@@ -38,7 +38,7 @@ func New(logger logger.Logger) *Config {
 	return &config
 }
 
-func DatabaseConnection(logger logger.Logger) *gorm.DB {
+func DatabaseConnection(config Config, logger logger.Logger) *gorm.DB {
 	dsn := fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=disable", config.Host, config.Port, config.Username, config.Password, config.DBName)
 	//dsn := "host=localhost user=gorm password=gorm dbname=gorm port=9920 sslmode=disable TimeZone=Asia/Shanghai"
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
