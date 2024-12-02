@@ -14,7 +14,7 @@ func MigrationUp(config *config.Config, myLogger logger.Logger) error {
 		"postgres://%s:%s@%s:%s/%s?sslmode=dissable",
 		config.Username, config.Password, config.Host, config.Port, config.DBName)
 	m, err := migrate.New(
-		"file://internal/migrations/migrations",
+		"file://migrations/migrations",
 		dbURL)
 	if m == nil || err != nil {
 		myLogger.Fatal(helpers.PgPrefix, helpers.PgMigrateFailed)
