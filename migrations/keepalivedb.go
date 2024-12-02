@@ -6,6 +6,7 @@ import (
 	"github.com/MentalMentos/techTaskMetr.git/pkg/helpers"
 	"github.com/MentalMentos/techTaskMetr.git/pkg/logger"
 	"github.com/golang-migrate/migrate/v4"
+	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/source/file"
 )
 
