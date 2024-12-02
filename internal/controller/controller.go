@@ -32,7 +32,7 @@ func (controller *Controller) Create(c gin.Context, logger logger.Logger) {
 		return
 	}
 
-	authResp, err := controller.Service.Create(c, Request, logger)
+	Resp, err := controller.Service.Create(c, Request, logger)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, response.Response{
 			Code:   http.StatusInternalServerError,
@@ -45,6 +45,6 @@ func (controller *Controller) Create(c gin.Context, logger logger.Logger) {
 	c.JSON(http.StatusOK, response.Response{
 		Code:   http.StatusOK,
 		Status: "successful",
-		Data:   authResp,
+		Data:   Resp,
 	})
 }
