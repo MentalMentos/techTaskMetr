@@ -18,7 +18,6 @@ func MigrationUp(config *config.Config, myLogger logger.Logger) error {
 	)
 	m, err := migrate.New("file://./migrations/migrations", dbURL)
 	if err != nil {
-
 		myLogger.Fatal(helpers.PgPrefix, fmt.Sprintf("Failed to initialize migration: %v", err))
 		return err
 	}
