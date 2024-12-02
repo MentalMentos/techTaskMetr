@@ -11,20 +11,21 @@ import (
 
 func MigrationUp(config *config.Config, myLogger logger.Logger) error {
 	dbURL := fmt.Sprintf(
-		"postgres://%s:%s@%s:%s/%s?sslmode=dissable",
-		config.Username, config.Password, config.Host, config.Port, config.DBName)
-	m, err := migrate.New(
-		"file://migrations/migrations",
-		dbURL)
-	if m == nil || err != nil {
-		myLogger.Fatal(helpers.PgPrefix, helpers.PgMigrateFailed)
+		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
+		config.Username, config.Password, config.Host, config.Port, config.DBName,
+	)
+	m, err := migrate.New("file://migrations", dbURL)
+	if err != nil {
+		myLogger.Fatal(helpers.PgPrefix, fmt.Sprintf("Failed to initialize migration: %v", err))
 		return err
 	}
+
 	err = m.Up()
-	if err != nil {
-		myLogger.Fatal(helpers.PgPrefix, helpers.PgMigrateFailed)
-		return fmt.Errorf(" %v", err)
+	if err != nil && err != migrate.ErrNoChange {
+		myLogger.Fatal(helpers.PgPrefix, fmt.Sprintf("Migration failed: %v", err))
+		return err
 	}
 
+	myLogger.Info(helpers.PgPrefix, "Migration applied successfully")
 	return nil
 }
