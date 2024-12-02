@@ -19,7 +19,7 @@ func main() {
 
 	cfg := config.New(myLogger)
 
-	db := config.DatabaseConnection(*cfg, myLogger)
+	db := config.DatabaseConnection(cfg, myLogger)
 
 	if err := migrations.MigrationUp(cfg, myLogger); err != nil {
 		log.Fatal("Main", "Migration failed: ", err)
