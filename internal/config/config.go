@@ -39,9 +39,10 @@ func New(logger logger.Logger) *Config {
 }
 
 func DatabaseConnection(config *Config, logger logger.Logger) *gorm.DB {
+	//dsn := fmt.Sprintf("host=%s port=5432 user=%s password=%s dbname=%s sslmode=disable", config.Host, config.Username, config.Password, config.DBName)
 	dsn := fmt.Sprintf("host=%s port=5432 user=%s password=%s dbname=%s sslmode=disable", config.Host, config.Username, config.Password, config.DBName)
-
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	//db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		logger.Fatal(helpers.PgPrefix, helpers.PgConnectFailed)
 	}
