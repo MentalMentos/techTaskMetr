@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   pg:
     image: postgres:14-alpine3.17
@@ -11,10 +9,10 @@ services:
       - "${PG_PORT}:5432"
     volumes:
       - postgres_volume:/var/lib/postgresql/data
-
   backend:
     build:
       context: .
+      dockerfile: migration.Dockerfile
     environment:
       - DB_HOST=pg         # указываем на имя сервиса PostgreSQL
       - DB_PORT=5432
@@ -25,3 +23,5 @@ services:
       - pg
     ports:
       - "8080:8080"
+volumes:
+  postgres_volume:  # Добавлен раздел volumes для определения объема

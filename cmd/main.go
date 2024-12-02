@@ -5,7 +5,6 @@ import (
 	"github.com/MentalMentos/techTaskMetr.git/internal/controller"
 	"github.com/MentalMentos/techTaskMetr.git/internal/repository"
 	"github.com/MentalMentos/techTaskMetr.git/internal/service"
-	"github.com/MentalMentos/techTaskMetr.git/migrations"
 	zaplogger "github.com/MentalMentos/techTaskMetr.git/pkg/logger/zap"
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin"
@@ -27,9 +26,9 @@ func main() {
 
 	db := config.DatabaseConnection(cfg, myLogger)
 
-	if err := migrations.MigrationUp(cfg, myLogger); err != nil {
-		log.Fatal("Main", "Migration failed: ", err)
-	}
+	//if err := migrations.MigrationUp(cfg, myLogger); err != nil {
+	//	log.Fatal("Main", "Migration failed: ", err)
+	//}
 
 	repo := repository.New(db, myLogger)
 	svc := service.NewService(repo, myLogger)
