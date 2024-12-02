@@ -1,4 +1,3 @@
--- +goose Up
 CREATE TABLE IF NOT EXISTS "tasks" (
     id VARCHAR(50) NOT NULL PRIMARY KEY UNIQUE,
     title VARCHAR(50) NOT NULL,

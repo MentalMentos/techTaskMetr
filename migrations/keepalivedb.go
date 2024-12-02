@@ -22,9 +22,10 @@ func MigrationUp(config *config.Config, myLogger logger.Logger) error {
 		return err
 	}
 
+	myLogger.Info(helpers.PgPrefix, "Found migrations")
 	err = m.Up()
 	if err != nil && err != migrate.ErrNoChange {
-		//myLogger.Fatal(helpers.PgPrefix, fmt.Sprintf("Migration failed: %v", err))
+		myLogger.Fatal(helpers.PgPrefix, fmt.Sprintf("Migration failed: %v", err))
 		return err
 	}
 
