@@ -11,12 +11,14 @@ import (
 )
 
 func MigrationUp(config *config.Config, myLogger logger.Logger) error {
+	myLogger.Info("Migration path", fmt.Sprintf("file://./migrations/migrations"))
 	dbURL := fmt.Sprintf(
 		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		config.Username, config.Password, config.Host, config.Port, config.DBName,
 	)
-	m, err := migrate.New("file://migrations/migrations", dbURL)
+	m, err := migrate.New("file://./migrations/migrations", dbURL)
 	if err != nil {
+
 		myLogger.Fatal(helpers.PgPrefix, fmt.Sprintf("Failed to initialize migration: %v", err))
 		return err
 	}
