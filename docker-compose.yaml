@@ -2,34 +2,36 @@ version: '3.9'
 
 services:
   pg:
-    image: postgres:14-alpine3.17
+    container_name: pg
+    image: postgres
     environment:
-      - "POSTGRES_HOST=${PG_HOST}"
-      - "POSTGRES_DB=${PG_DATABASE_NAME}"
-      - "POSTGRES_USER=${PG_USER}"
-      - "POSTGRES_PASSWORD=${PG_PASSWORD}"
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASS}
     ports:
-      - "${PG_PORT}:5432"
+      - ${DB_PORT}:5432
+    restart: always
     volumes:
-      - postgres_volume:/var/lib/postgresql/data
-
-  migrator:
-    build:
-      context: .
-      dockerfile: migration.Dockerfile
-    depends_on:
-      - pg
-    environment:
-      DB_HOST: localhost
-      PG_USER: ${PG_USER}
-      PG_PASSWORD: ${PG_PASSWORD}
-      PG_DATABASE_NAME: ${PG_DATABASE_NAME}
+      - .postgres:/var/lib/postgres/data
+    env_file:
+      - .env
+#  migrator:
+#    build:
+#      context: .
+#      dockerfile: migration.Dockerfile
+#    depends_on:
+#      - pg
+#    environment:
+#      DB_HOST: pg
+#      PG_USER: ${PG_USER}
+#      PG_PASSWORD: ${PG_PASSWORD}
+#      PG_DATABASE_NAME: ${PG_DATABASE_NAME}
 
   backend:
     build:
       context: .
     environment:
-      DB_HOST: postgres
+      DB_HOST: pg
       DB_PORT: 5432
       DB_USER: user
       DB_PASSWORD: 1234
@@ -39,16 +41,16 @@ services:
     depends_on:
       - pg
 
-  prometheus:
-    image: prom/prometheus:latest
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    ports:
-      - "9090:9090"
+#  prometheus:
+#    image: prom/prometheus:latest
+#    volumes:
+#      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#    ports:
+#      - "9090:9090"
 
-  grafana:
-    image: grafana/grafana:latest
-    ports:
-      - "3000:3000"
+#  grafana:
+#    image: grafana/grafana:latest
+#    ports:
+#      - "3000:3000"
 volumes:
   postgres_volume:

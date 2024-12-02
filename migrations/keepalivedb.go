@@ -16,7 +16,7 @@ func MigrationUp(config *config.Config, myLogger logger.Logger) error {
 		"postgres://%s:%s@%s:%s/%s?sslmode=disable",
 		config.Username, config.Password, config.Host, config.Port, config.DBName,
 	)
-	m, err := migrate.New("file://./migrations/migrations", dbURL)
+	m, err := migrate.New("file:///Users/romchik/techTaskMetr/migrations/migrations", dbURL)
 	if err != nil {
 		myLogger.Fatal(helpers.PgPrefix, fmt.Sprintf("Failed to initialize migration: %v", err))
 		return err
@@ -24,7 +24,7 @@ func MigrationUp(config *config.Config, myLogger logger.Logger) error {
 
 	err = m.Up()
 	if err != nil && err != migrate.ErrNoChange {
-		myLogger.Fatal(helpers.PgPrefix, fmt.Sprintf("Migration failed: %v", err))
+		//myLogger.Fatal(helpers.PgPrefix, fmt.Sprintf("Migration failed: %v", err))
 		return err
 	}
 

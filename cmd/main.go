@@ -10,11 +10,17 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin"
 	_ "github.com/go-playground/validator/v10"
+	"github.com/joho/godotenv"
 	"github.com/labstack/gommon/log"
 	_ "net/http"
 )
 
 func main() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	myLogger := zaplogger.New()
 
 	cfg := config.New(myLogger)
