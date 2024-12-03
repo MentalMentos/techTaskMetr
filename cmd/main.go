@@ -36,9 +36,9 @@ func main() {
 	taskService := service.NewService(taskRepository, myLogger)
 	taskController := controller.NewController(taskService, myLogger)
 
-	authRoutes := router.Group("/auth")
+	authRoutes := router.Group("/tasks")
 	{
-		authRoutes.POST("/register", taskController.Create)
+		authRoutes.POST("/create", taskController.Create)
 	}
 
 	if err := router.Run(":8080"); err != nil {
