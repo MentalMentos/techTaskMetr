@@ -33,5 +33,5 @@ func (controller *Controller) Create(c *gin.Context) {
 		return
 	}
 
-	JsonResponse(c, http.StatusOK, "Registration successful", taskResp)
+	JsonResponse(c, http.StatusOK, "Tasks created successful", taskResp)
 }

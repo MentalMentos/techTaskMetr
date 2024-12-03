@@ -1,9 +1,9 @@
 -- +goose Up
 CREATE TABLE tasks (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(100) NOT NULL,
-    description VARCHAR(100) NOT NULL,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    title TEXT NOT NULL ,
+    description TEXT,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 
