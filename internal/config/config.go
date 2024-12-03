@@ -23,6 +23,14 @@ var (
 	once   sync.Once
 )
 
+const (
+	host     = "localhost"
+	port     = 5432
+	user     = "user"
+	password = "1234"
+	dbName   = "postgres"
+)
+
 // New returns Config struct with env variables
 func New(logger logger.Logger) *Config {
 	once.Do(func() {
@@ -38,11 +46,9 @@ func New(logger logger.Logger) *Config {
 	return &config
 }
 
-func DatabaseConnection(config *Config, logger logger.Logger) *gorm.DB {
-	//dsn := fmt.Sprintf("host=%s port=5432 user=%s password=%s dbname=%s sslmode=disable", config.Host, config.Username, config.Password, config.DBName)
-	dsn := fmt.Sprintf("host=%s port=5432 user=%s password=%s dbname=%s sslmode=disable", config.Host, config.Username, config.Password, config.DBName)
+func DatabaseConnection(logger logger.Logger) *gorm.DB {
+	dsn := fmt.Sprintf("host=%s port=5432 user=%s password=%s dbname=%s sslmode=disable", host, user, password, dbName)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
-	//db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		logger.Fatal(helpers.PgPrefix, helpers.PgConnectFailed)
 	}

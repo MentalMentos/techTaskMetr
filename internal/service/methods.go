@@ -23,7 +23,7 @@ func NewTaskService(repo *repository.Repository, logger logger.Logger) *TaskServ
 	}
 }
 
-func (s *TaskService) Create(ctx gin.Context, req request.CreateTaskRequest, logger logger.Logger) (*response.TaskResponse, error) {
+func (s *TaskService) Create(ctx *gin.Context, req request.CreateTaskRequest, logger logger.Logger) (*response.TaskResponse, error) {
 	task := &models.Task{
 		Title:       req.Title,
 		Description: req.Description,

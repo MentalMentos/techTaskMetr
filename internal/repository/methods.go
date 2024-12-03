@@ -20,8 +20,8 @@ func NewTaskRepo(DB *gorm.DB, logger logger.Logger) *RepoImpl {
 	}
 }
 
-func (r *RepoImpl) Create(ctx gin.Context, m *models.Task, logger logger.Logger) error {
-	if err := r.DB.WithContext(&ctx).Create(&m).Error; err != nil {
+func (r *RepoImpl) Create(ctx *gin.Context, m *models.Task, logger logger.Logger) error {
+	if err := r.DB.WithContext(ctx).Create(&m).Error; err != nil {
 		logger.Fatal("[  Repository  ]", helpers.FailedToCreateElement)
 		return err
 	}

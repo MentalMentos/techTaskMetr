@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/MentalMentos/techTaskMetr.git/internal/config"
 	"github.com/MentalMentos/techTaskMetr.git/internal/controller"
+	"github.com/MentalMentos/techTaskMetr.git/internal/models"
 	"github.com/MentalMentos/techTaskMetr.git/internal/repository"
 	"github.com/MentalMentos/techTaskMetr.git/internal/service"
 	zaplogger "github.com/MentalMentos/techTaskMetr.git/pkg/logger/zap"
@@ -11,6 +12,7 @@ import (
 	_ "github.com/go-playground/validator/v10"
 	"github.com/joho/godotenv"
 	"github.com/labstack/gommon/log"
+	"net/http"
 	_ "net/http"
 )
 
@@ -22,24 +24,24 @@ func main() {
 
 	myLogger := zaplogger.New()
 
-	cfg := config.New(myLogger)
+	router := gin.Default()
+	router.GET("/", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, "Welcome Home!")
+	})
 
-	db := config.DatabaseConnection(cfg, myLogger)
+	db := config.DatabaseConnection(myLogger)
+	db.Table("users").AutoMigrate(&models.Task{})
 
-	//if err := migrations.MigrationUp(cfg, myLogger); err != nil {
-	//	log.Fatal("Main", "Migration failed: ", err)
-	//}
+	taskRepository := repository.New(db, myLogger)
+	taskService := service.NewService(taskRepository, myLogger)
+	taskController := controller.NewController(taskService, myLogger)
 
-	repo := repository.New(db, myLogger)
-	svc := service.NewService(repo, myLogger)
-	ctrl := controller.NewController(svc, myLogger)
-
-	r := gin.Default()
-	r.POST("/tasks", func(c *gin.Context) { ctrl.Create(*c, myLogger) })
-
-	log.Info("Main", "Starting server on port 8080")
-	if err := r.Run(":8080"); err != nil {
-		log.Fatal("Main", "Failed to start server")
+	authRoutes := router.Group("/auth")
+	{
+		authRoutes.POST("/register", taskController.Create)
 	}
 
+	if err := router.Run(":8080"); err != nil {
+		log.Fatal("Main", "Failed to start server")
+	}
 }

@@ -9,7 +9,7 @@ import (
 )
 
 type Task interface {
-	Create(ctx gin.Context, req request.CreateTaskRequest, logger logger.Logger) (*response.TaskResponse, error)
+	Create(ctx *gin.Context, req request.CreateTaskRequest, logger logger.Logger) (*response.TaskResponse, error)
 }
 
 type Service struct {
