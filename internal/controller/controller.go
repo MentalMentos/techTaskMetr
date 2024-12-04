@@ -51,8 +51,13 @@ func (controller *Controller) MetricsHandler(c *gin.Context) {
 // TaskWithMetrics обрабатывает запросы на создание задач с метриками
 func (controller *Controller) TaskWithMetrics(c *gin.Context) {
 	start := time.Now()
-	var task request.CreateTaskRequest
-	taskResp, err := controller.Service.Create(c, task, controller.logger)
+	var taskRequest request.CreateTaskRequest
+	if err := c.ShouldBindJSON(&taskRequest); err != nil {
+		HandleError(c, &ApiError{Code: http.StatusBadRequest, Message: "Invalid request payload"})
+		return
+	}
+
+	taskResp, err := controller.Service.Create(c, taskRequest, controller.logger)
 	if err != nil {
 		HandleError(c, &ApiError{Code: http.StatusBadRequest, Message: "Invalid request payload"})
 		return

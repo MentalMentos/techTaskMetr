@@ -37,7 +37,7 @@ func main() {
 	router := routes.SetupRouter(taskController)
 
 	// Запуск приложения
-	if err := router.Run(":8080"); err != nil {
+	if err := router.Run(":8888"); err != nil {
 		log.Fatal("Failed to start server:", err)
 	}
 }
