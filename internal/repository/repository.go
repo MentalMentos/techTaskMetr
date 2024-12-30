@@ -8,7 +8,11 @@ import (
 )
 
 type Task interface {
-	Create(ctx *gin.Context, m *models.Task, logger logger.Logger) error
+	Create(ctx *gin.Context, m *models.Task) error
+	Update(ctx *gin.Context, m *models.Task) error
+	Delete(ctx *gin.Context, m models.Task) error
+	List(ctx *gin.Context) ([]models.Task, error)
+	GetById(ctx *gin.Context, id string) (models.Task, error)
 }
 
 type Repository struct {

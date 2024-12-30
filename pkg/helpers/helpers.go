@@ -4,8 +4,10 @@ const (
 	FailedToCreateElement = "FAILED_TO_CREATE_ELEMENT" // FailedToCreateElement contains error message for failed to create element
 	FailedToDeleteElement = "FAILED_TO_DELETE_ELEMENT" // FailedToDeleteElement contains error message for failed to delete element
 	FailedToGetElements   = "FAILED_TO_GET_ELEMENTS"   // FailedToGetElements contains error message for failed to get elements
-	JSONParseError        = "JSON_PARSE_ERROR"         // JSONParseError contains error message for failed to parse json
-	DefaultValueForFields = "NOT FOUND"                // DefaultValueForFields contains default value for fields
+	FailedToUpdateElement = "FAILED_TO_UPDATE_ELEMENT"
+
+	JSONParseError        = "JSON_PARSE_ERROR" // JSONParseError contains error message for failed to parse json
+	DefaultValueForFields = "NOT FOUND"        // DefaultValueForFields contains default value for fields
 
 	AppPrefix      = " [ APP ] "      // AppPrefix contains app prefix
 	ResponsePrefix = " [ RESPONSE ] " // ResponsePrefix contains response prefix

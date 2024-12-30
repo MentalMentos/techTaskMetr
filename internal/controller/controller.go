@@ -85,3 +85,13 @@ func (controller *Controller) Create(c *gin.Context) {
 
 	JsonResponse(c, http.StatusOK, "Tasks created successful", taskResp)
 }
+
+func (controller *Controller) Delete(c *gin.Context) {}
+
+func (controller *Controller) List(c *gin.Context) {}
+
+func (controller *Controller) Get(c *gin.Context) {}
+
+func (controller *Controller) Update(c *gin.Context) {}
+
+func (controller *Controller) DeleteAll(c *gin.Context) {}
