@@ -1,8 +1,8 @@
 package request
 
 type CreateTaskRequest struct {
-	Title       string `json:"title" binding:"required"`       // Название задачи (обязательно)
-	Description string `json:"description" binding:"required"` // Описание задачи (обязательно)
+	Title       string `json:"title" validate:"required"`       // Название задачи (обязательно)
+	Description string `json:"description" validate:"required"` // Описание задачи (обязательно)
 }
 
 type UpdateTaskRequest struct {
