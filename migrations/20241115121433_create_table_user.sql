@@ -4,6 +4,7 @@ CREATE TABLE tasks (
     title TEXT NOT NULL ,
     description TEXT,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    status boolean NOT NULL,
 );
 
 
