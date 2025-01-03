@@ -3,8 +3,8 @@ CREATE TABLE tasks (
     id SERIAL PRIMARY KEY,
     title TEXT NOT NULL ,
     description TEXT,
-    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    status boolean NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status boolean NOT NULL
 );
 
 
