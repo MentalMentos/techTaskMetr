@@ -30,7 +30,7 @@ func (r *RepoImpl) Create(ctx *gin.Context, m *models.Task) error {
 	return nil
 }
 
-func (r *RepoImpl) Delete(ctx *gin.Context, m models.Task) error {
+func (r *RepoImpl) Delete(ctx *gin.Context, m *models.Task) error {
 	if err := r.DB.WithContext(ctx).Delete(&m).Error; err != nil {
 		r.logger.Fatal("[  Repository  ]", helpers.FailedToDeleteElement)
 		return err
@@ -51,8 +51,8 @@ func (r *RepoImpl) List(ctx *gin.Context) ([]models.Task, error) {
 
 func (r *RepoImpl) Update(ctx *gin.Context, m *models.Task) error {
 	newTask := request.UpdateTaskRequest{
-		m.Title,
-		m.Description,
+		Id:    m.Title,
+		Title: m.Description,
 	}
 	if err := r.DB.WithContext(ctx).Updates(newTask).Error; err != nil {
 		r.logger.Fatal("[ REPOSITORY_UPDATE ]", "FailedToUpdateElement")

@@ -57,7 +57,7 @@ func (controller *Controller) TaskWithMetrics(c *gin.Context) {
 		return
 	}
 
-	taskResp, err := controller.Service.Create(c, taskRequest, controller.logger)
+	taskResp, err := controller.Service.Create(c, taskRequest)
 	if err != nil {
 		HandleError(c, &ApiError{Code: http.StatusBadRequest, Message: "Invalid request payload"})
 		return
@@ -77,7 +77,7 @@ func (controller *Controller) Create(c *gin.Context) {
 		return
 	}
 
-	taskResp, err := controller.Service.Create(c, taskRequest, controller.logger)
+	taskResp, err := controller.Service.Create(c, taskRequest)
 	if err != nil {
 		HandleError(c, err)
 		return
@@ -86,12 +86,37 @@ func (controller *Controller) Create(c *gin.Context) {
 	JsonResponse(c, http.StatusOK, "Tasks created successful", taskResp)
 }
 
-func (controller *Controller) Delete(c *gin.Context) {}
+func (controller *Controller) Update(c *gin.Context) {
+	var taskRequest request.UpdateTaskRequest
+	if err := c.ShouldBindJSON(&taskRequest); err != nil {
+		HandleError(c, &ApiError{Code: http.StatusBadRequest, Message: "Invalid request payload"})
+		return
+	}
+	taskResp, err := controller.Service.Update(c, taskRequest)
+	if err != nil {
+		HandleError(c, err)
+		return
+	}
 
-func (controller *Controller) List(c *gin.Context) {}
+	JsonResponse(c, http.StatusOK, "Task updated successfully", taskResp)
+}
 
-func (controller *Controller) Get(c *gin.Context) {}
+func (controller *Controller) Delete(c *gin.Context) {
+	var taskRequest request.DeleteTaskRequest
+	if err := c.ShouldBindJSON(&taskRequest); err != nil {
+		HandleError(c, &ApiError{Code: http.StatusBadRequest, Message: "Invalid request payload"})
+		return
+	}
 
-func (controller *Controller) Update(c *gin.Context) {}
+	taskResp, err := controller.Service.Done(c, taskRequest)
+	if err != nil {
+		HandleError(c, err)
+		return
+	}
 
-func (controller *Controller) DeleteAll(c *gin.Context) {}
+	JsonResponse(c, http.StatusOK, "Tasks created successful", taskResp)
+}
+
+func (controller *Controller) List(c *gin.Context) {
+
+}
