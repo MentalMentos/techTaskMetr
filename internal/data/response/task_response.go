@@ -1,6 +1,9 @@
 package response
 
-import "time"
+import (
+	"github.com/MentalMentos/techTaskMetr.git/internal/models"
+	"time"
+)
 
 type TaskResponse struct {
 	ID          int64     `json:"id"`          // Уникальный идентификатор задачи
@@ -11,5 +14,5 @@ type TaskResponse struct {
 }
 
 type AllTasksResponse struct {
-	Tasks []TaskResponse `json:"tasks"`
+	Tasks []models.Task `json:"tasks"`
 }

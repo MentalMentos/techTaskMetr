@@ -12,7 +12,7 @@ type Task interface {
 	Create(ctx *gin.Context, req request.CreateTaskRequest) (*response.TaskResponse, error)
 	Update(ctx *gin.Context, req request.UpdateTaskRequest) (*response.TaskResponse, error)
 	Done(ctx *gin.Context, req request.DeleteTaskRequest) (*response.TaskResponse, error)
-	List(ctx *gin.Context, request.)
+	List(ctx *gin.Context) (*response.AllTasksResponse, error)
 }
 
 type Service struct {

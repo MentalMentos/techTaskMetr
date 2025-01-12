@@ -43,7 +43,7 @@ func (s *TaskService) Create(ctx *gin.Context, req request.CreateTaskRequest) (*
 		task.Description,
 		task.CreatedAt,
 		task.Status,
-	}, err
+	}, nil
 }
 
 func (s *TaskService) Update(ctx *gin.Context, req request.UpdateTaskRequest) (*response.TaskResponse, error) {
@@ -90,7 +90,7 @@ func (s *TaskService) Done(ctx *gin.Context, req request.DeleteTaskRequest) (*re
 		Description: task.Description,
 		CreatedAt:   task.CreatedAt,
 		Status:      true,
-	}, err
+	}, nil
 }
 
 func (s *TaskService) List(ctx *gin.Context) (*response.AllTasksResponse, error) {
