@@ -16,13 +16,13 @@ func SetupRouter(controller *controller.Controller) *gin.Engine {
 	authRoutes := router.Group("/tasks")
 	{
 		authRoutes.POST("/create", controller.Create)
-		authRoutes.POST("/delete", controller.Delete)
+		authRoutes.POST("/done", controller.Done)
 		authRoutes.POST("/update", controller.Update)
 		authRoutes.GET("/list", controller.List)
 		authRoutes.POST("/create-with-metrics", controller.TaskWithMetrics)
 		authRoutes.POST("/update-with-metrics", controller.TaskWithMetrics)
 		authRoutes.POST("/delete-with-metrics", controller.TaskWithMetrics)
-		authRoutes.GET("/list-with-metrics")
+		authRoutes.GET("/list-with-metrics", controller.TaskWithMetrics)
 	}
 
 	router.GET("/metrics", controller.MetricsHandler)

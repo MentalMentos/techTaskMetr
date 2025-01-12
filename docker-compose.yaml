@@ -18,7 +18,7 @@ services:
   migrator:
     build:
       context: .
-      dockerfile: migration.Dockerfile
+      dockerfile: ./techTaskMetr/migration.Dockerfile
     depends_on:
       pg:
         condition: service_healthy
