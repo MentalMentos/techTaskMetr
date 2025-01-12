@@ -9,3 +9,7 @@ type TaskResponse struct {
 	CreatedAt   time.Time `json:"created_at"`  // Дата и время создания задачи
 	Status      bool      `json:"status"`      //0-незавершённая 1-завершённая
 }
+
+type AllTasksResponse struct {
+	Tasks []TaskResponse `json:"tasks"`
+}

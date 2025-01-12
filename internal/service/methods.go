@@ -92,3 +92,16 @@ func (s *TaskService) Done(ctx *gin.Context, req request.DeleteTaskRequest) (*re
 		Status:      true,
 	}, err
 }
+
+func (s *TaskService) List(ctx *gin.Context) (*response.AllTasksResponse, error) {
+	tasks, err := s.repo.List(ctx)
+	if err != nil {
+		s.logger.Fatal("[ SERVICE_LIST ]", helpers.FailedToGetElements)
+		return nil, err
+	}
+	s.logger.Info(helpers.InfoPrefix, "service list")
+	return &response.AllTasksResponse{
+		tasks,
+	}, nil
+
+}
