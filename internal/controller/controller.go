@@ -118,13 +118,7 @@ func (controller *Controller) Done(c *gin.Context) {
 }
 
 func (controller *Controller) List(c *gin.Context) {
-	var taskRequest request.DeleteTaskRequest
-	if err := c.ShouldBindJSON(&taskRequest); err != nil {
-		HandleError(c, &ApiError{Code: http.StatusBadRequest, Message: "Invalid request payload"})
-		return
-	}
-
-	taskResp, err := controller.Service.Done(c, taskRequest)
+	taskResp, err := controller.Service.List(c)
 	if err != nil {
 		HandleError(c, err)
 		return
