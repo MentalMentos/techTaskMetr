@@ -124,5 +124,5 @@ func (controller *Controller) List(c *gin.Context) {
 		return
 	}
 
-	JsonResponse(c, http.StatusOK, "Tasks created successful", taskResp)
+	JsonResponse(c, http.StatusOK, "Tasks list successful", taskResp)
 }

@@ -42,7 +42,7 @@ func (r *RepoImpl) Delete(ctx *gin.Context, m *models.Task) error {
 // показывает все запланированные таски
 func (r *RepoImpl) List(ctx *gin.Context) ([]models.Task, error) {
 	var tasks []models.Task
-	if err := r.DB.WithContext(ctx).Find(&tasks, "status = ?", true).Error; err != nil {
+	if err := r.DB.WithContext(ctx).Find(&tasks, "status = ?", false).Error; err != nil {
 		r.logger.Fatal("[  Repository  ]", helpers.FailedToGetElements)
 		return tasks, err
 	}
