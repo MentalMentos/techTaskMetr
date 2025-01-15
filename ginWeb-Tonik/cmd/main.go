@@ -41,7 +41,7 @@ func main() {
 		authRoutes.PUT("/update-password", authController.UpdatePassword) // Обновление пароля
 	}
 
-	if err := router.Run(":8080"); err != nil {
+	if err := router.Run(":8881"); err != nil {
 		log.Fatal("Main", "Failed to start server")
 	}
 }

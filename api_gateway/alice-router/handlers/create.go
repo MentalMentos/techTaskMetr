@@ -1,11 +1,7 @@
 package handlers
 
 import (
-	"bytes"
-	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -25,21 +21,21 @@ func CreateTaskHandler(c *gin.Context) {
 		return
 	}
 
-	// Здесь идет логика взаимодействия с вашим микросервисом задачника
-	baseURL := "http://your-service-url.com/tasks/create"
-
-	jsonValue, _ := json.Marshal(req)
-	resp, err := http.Post(baseURL, "application/json", bytes.NewBuffer(jsonValue))
-	if err != nil || resp.StatusCode != http.StatusCreated {
-		log.Fatalf("Ошибка при создании задачи: %v", err)
+	token, exists := c.Get("token")
+	if !exists {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Токен не найден"})
+		return
 	}
 
-	body, _ := ioutil.ReadAll(resp.Body)
-	var data map[string]interface{}
-	json.Unmarshal(body, &data)
+	url := "http://localhost:8882/tasks/create"
+	responseData, err := sendAuthorizedRequest("POST", url, token.(string), req)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 
 	c.JSON(http.StatusCreated, gin.H{
 		"message": "Задача успешно создана!",
-		"data":    data,
+		"data":    responseData,
 	})
 }

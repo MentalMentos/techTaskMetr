@@ -1,16 +1,8 @@
 package handlers
 
-
 import (
-	"bytes"
-	"encoding/json"
-	"io/ioutil"
-	"log"
-	"net/http"
-	"strconv"
-	"strings"
-
 	"github.com/gin-gonic/gin"
+	"net/http"
 )
 
 // UpdateTaskRequest структура запроса для обновления задачи
@@ -26,23 +18,22 @@ type UpdateTaskRequest struct {
 func UpdateTaskHandler(c *gin.Context) {
 	var req UpdateTaskRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error":= err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	// Здесь идет логика взаимодействия с вашим микросервисом задачника
-	baseURL := "http://your-service-url.com/tasks/update"
-
-	jsonValue, _ := json.Marshal(req)
-	resp, err := http.Post(baseURL, "application/json", bytes.NewBuffer(jsonValue))
-	if err != nil || resp.StatusCode != http.StatusOK {
-		log.Fatalf("Ошибка при обновлении задачи: %v", err)
+	token := c.Request.Header.Get("Authorization")
+	if token == "" {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Отсутствует токен авторизации"})
+		return
 	}
 
-	body, _ := ioutil.ReadAll(resp.Body)
-	var data map[string]interface{}
-	json.Unmarshal(body, &data)
-
+	url := "http://localhost:8882/tasks/update"
+	data, err := sendAuthorizedRequest("POST", url, token, nil)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Задача успешно обновлена!",
 		"data":    data,

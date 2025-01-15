@@ -1,10 +1,7 @@
 package handlers
 
 import (
-	"encoding/json"
 	"github.com/gin-gonic/gin"
-	"io/ioutil"
-	"log"
 	"net/http"
 )
 
@@ -15,27 +12,21 @@ type ListTasksRequest struct {
 
 // ListTasksHandler обработчик для получения списка задач
 func ListTasksHandler(c *gin.Context) {
-	var req ListTasksRequest
-	if err := c.ShouldBindQuery(&req); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	token := c.Request.Header.Get("Authorization")
+	if token == "" {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Отсутствует токен авторизации"})
 		return
 	}
 
-	// Здесь идет логика взаимодействия с вашим микросервисом задачника
-	baseURL := "http://your-service-url.com/tasks/list"
-
-	jsonValue, _ := json.Marshal(req)
-	resp, err := http.Get(baseURL + "?alice_user_id=" + req.AliceUserID)
-	if err != nil || resp.StatusCode != http.StatusOK {
-		log.Fatalf("Ошибка при получении списка задач: %v", err)
+	url := "http://localhost:8882/tasks/list"
+	responseData, err := sendAuthorizedRequest("GET", url, token, nil)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
 	}
-
-	body, _ := ioutil.ReadAll(resp.Body)
-	var data map[string]interface{}
-	json.Unmarshal(body, &data)
 
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Список задач получен!",
-		"data":    data,
+		"data":    responseData,
 	})
 }

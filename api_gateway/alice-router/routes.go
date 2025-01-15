@@ -1,24 +1,29 @@
 package alice_router
 
 import (
+	"github.com/MentalMentos/api_gateway/alice-router/handlers"
 	"github.com/gin-gonic/gin"
-	"github.com/your-username/your-repo/handler"
 	"net/http"
 )
 
 // SetupRouter настройка маршрутов
-func SetupRouter(router *gin.Engine, controller *handler.Controller) {
+func SetupRouter(router *gin.Engine) {
+	// Приветственное сообщение
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"message": "Привет! Добро пожаловать в задачник!",
+			"message": "Привет, я Alice! Добро пожаловать в задачник!",
 		})
 	})
 
-	authRoutes := router.Group("/tasks")
+	// Группа маршрутов с middleware авторизации
+	authRoutes := router.Group("/alice")
+	authRoutes.Use(handlers.AuthMiddleware) // Подключаем middleware
+
+	// Ручки задачника
 	{
-		authRoutes.POST("/create", controller.CreateTaskHandler)
-		authRoutes.POST("/done", controller.DoneTaskHandler)
-		authRoutes.POST("/update", controller.UpdateTaskHandler)
-		authRoutes.GET("/list", controller.ListTasksHandler)
+		authRoutes.POST("/create", handlers.CreateTaskHandler)
+		authRoutes.POST("/done", handlers.DoneTaskHandler)
+		authRoutes.POST("/update", handlers.UpdateTaskHandler)
+		authRoutes.GET("/list", handlers.ListTasksHandler)
 	}
 }

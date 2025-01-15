@@ -38,7 +38,7 @@ services:
     depends_on:
       - pg
     ports:
-      - "8080:8080"
+      - "8882:8882"
 
   prometheus:
     image: prom/prometheus:latest
