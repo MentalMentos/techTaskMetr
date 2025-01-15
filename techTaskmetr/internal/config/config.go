@@ -28,7 +28,7 @@ const (
 	//port     = 5432
 	user     = "user"
 	password = "1234"
-	dbName   = "postgres1"
+	dbName   = "postgres"
 )
 
 // New returns Config struct with env variables

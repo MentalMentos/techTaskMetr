@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/MentalMentos/api_gateway/alice-router/handlers"
 	"net/http"
 )
 
@@ -15,7 +14,7 @@ type AuthResponse struct {
 }
 
 // TryLogin адаптированная попытка авторизации
-func TryLogin(req handlers.LoginRequest) (*AuthResponse, error) {
+func TryLogin(req LoginRequest) (*AuthResponse, error) {
 	authURL := "http://localhost:8881/login"
 	jsonValue, _ := json.Marshal(req)
 
@@ -38,7 +37,7 @@ func TryLogin(req handlers.LoginRequest) (*AuthResponse, error) {
 }
 
 // TryRegister адаптированная попытка регистрации
-func TryRegister(req handlers.RegisterRequest) (*AuthResponse, error) {
+func TryRegister(req RegisterRequest) (*AuthResponse, error) {
 	registerURL := "http://localhost:8881/register"
 	jsonValue, _ := json.Marshal(req)
 
@@ -53,7 +52,7 @@ func TryRegister(req handlers.RegisterRequest) (*AuthResponse, error) {
 	}
 
 	// После успешной регистрации выполняем авторизацию
-	loginReq := handlers.LoginRequest{
+	loginReq := LoginRequest{
 		Email:    req.Email,
 		Password: req.Password,
 	}
