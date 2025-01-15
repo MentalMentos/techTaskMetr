@@ -5,6 +5,21 @@ import (
 	"net/http"
 )
 
+type RegisterRequest struct {
+	Name     string `json:"name" binding:"required"`
+	Email    string `json:"email" binding:"required,email"`
+	Password string `json:"password" binding:"required"`
+}
+
+type LoginRequest struct {
+	Email    string `json:"email" binding:"required,email"`
+	Password string `json:"password" binding:"required"`
+}
+
+type LoginResponse struct {
+	AccessToken string `json:"access_token"`
+}
+
 // AuthMiddleware промежуточная функция для авторизации/регистрации
 func AuthMiddleware(c *gin.Context) {
 	var loginReq LoginRequest
@@ -20,6 +35,7 @@ func AuthMiddleware(c *gin.Context) {
 	if err != nil {
 		// Если авторизация не удалась, пробуем регистрировать
 		var registerReq RegisterRequest
+		registerReq.Name = "пользователь"
 		registerReq.Email = loginReq.Email
 		registerReq.Password = loginReq.Password
 
