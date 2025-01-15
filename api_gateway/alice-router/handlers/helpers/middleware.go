@@ -23,7 +23,6 @@ func AuthMiddleware(c *gin.Context) {
 		var registerReq handlers.RegisterRequest
 		registerReq.Email = loginReq.Email
 		registerReq.Password = loginReq.Password
-		registerReq.Name = "Пользователь" // Или запросите имя отдельно
 
 		authResp, err = TryRegister(registerReq)
 		if err != nil {
