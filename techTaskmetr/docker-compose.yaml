@@ -6,7 +6,7 @@ services:
       - POSTGRES_USER=${PG_USER}
       - POSTGRES_PASSWORD=${PG_PASSWORD}
     ports:
-      - "${PG_PORT}:5433"
+      - "${PG_PORT}:58946"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -23,7 +23,7 @@ services:
       pg:
         condition: service_healthy
     environment:
-      PG_DSN: host=pg port=5432 dbname=postgres user=user password=1234 sslmode=disable
+      PG_DSN: host=pg port=58946 dbname=postgres1 user=user password=1234 sslmode=disable
       MIGRATION_DIR: ${MIGRATION_DIR}
 
   backend:
@@ -31,7 +31,7 @@ services:
       context: .
     environment:
       DB_HOST: pg
-      DB_PORT: 5433
+      DB_PORT: 58946
       DB_NAME: tasks_db
       DB_USER: user
       DB_PASSWORD: password

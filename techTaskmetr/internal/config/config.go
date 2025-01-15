@@ -28,7 +28,7 @@ const (
 	//port     = 5432
 	user     = "user"
 	password = "1234"
-	dbName   = "postgres"
+	dbName   = "postgres1"
 )
 
 // New returns Config struct with env variables
@@ -47,7 +47,7 @@ func New(logger logger.Logger) *Config {
 }
 
 func DatabaseConnection(logger logger.Logger) *gorm.DB {
-	dsn := fmt.Sprintf("host=%s port=5433 user=%s password=%s dbname=%s sslmode=disable", host, user, password, dbName)
+	dsn := fmt.Sprintf("host=%s port=58946 user=%s password=%s dbname=%s sslmode=disable", host, user, password, dbName)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		logger.Fatal(helpers.PgPrefix, helpers.PgConnectFailed)
