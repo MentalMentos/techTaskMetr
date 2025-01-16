@@ -7,12 +7,6 @@ import (
 	"net/http"
 )
 
-type AuthResponse struct {
-	AccessToken  string `json:"access_token"`
-	RefreshToken string `json:"refresh_token"`
-	UserID       int64  `json:"user_id"`
-}
-
 // TryLogin адаптированная попытка авторизации
 func TryLogin(req LoginRequest) (*AuthResponse, error) {
 	authURL := "http://localhost:8881/auth/login"

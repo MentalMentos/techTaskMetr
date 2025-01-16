@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
@@ -18,6 +19,7 @@ type UpdateTaskRequest struct {
 func UpdateTaskHandler(c *gin.Context) {
 	var req UpdateTaskRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
+		log.Fatalf("cannot bind json in update alice", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}

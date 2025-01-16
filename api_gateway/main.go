@@ -16,11 +16,9 @@ import (
 func main() {
 	router := gin.Default()
 
+	log.Printf("роутер создался")
 	// Настройка маршрутов
 	alice_router.SetupRouter(router)
-
-	//TODO: logger
-
 	// Запуск сервера
 	srv := &http.Server{
 		Addr:    ":8880",
@@ -28,6 +26,7 @@ func main() {
 	}
 
 	go func() {
+		log.Printf("сервер запущен, подключён")
 		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
 			log.Fatalf("Ошибка запуска сервера: %v", err)
 		}

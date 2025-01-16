@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
@@ -18,12 +19,14 @@ type DoneTaskRequest struct {
 func DoneTaskHandler(c *gin.Context) {
 	var req DoneTaskRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
+		log.Fatalf("cannot bind json in delete alice", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
 	token, exists := c.Get("token")
 	if !exists {
+		log.Fatalf("токен не найден", exists)
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Токен не найден"})
 		return
 	}
@@ -31,10 +34,11 @@ func DoneTaskHandler(c *gin.Context) {
 	url := "http://localhost:8882/tasks/done"
 	data, err := sendAuthorizedRequest("POST", url, token.(string), req)
 	if err != nil {
+		log.Fatalf("cannot sendauthReq in delete alice", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}
-	
+
 	c.JSON(http.StatusOK, gin.H{
 		"message": "Задача успешно завершена!",
 		"data":    data,

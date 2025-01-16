@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
@@ -14,6 +15,7 @@ type ListTasksRequest struct {
 func ListTasksHandler(c *gin.Context) {
 	token := c.Request.Header.Get("Authorization")
 	if token == "" {
+		log.Fatalf("токен авторизации отсутствует", token)
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Отсутствует токен авторизации"})
 		return
 	}
@@ -21,6 +23,7 @@ func ListTasksHandler(c *gin.Context) {
 	url := "http://localhost:8882/tasks/list"
 	responseData, err := sendAuthorizedRequest("GET", url, token, nil)
 	if err != nil {
+		log.Fatalf("cannot bind json in list alice", err)
 		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
 	}

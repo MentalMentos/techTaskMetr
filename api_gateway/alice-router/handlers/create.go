@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"github.com/gin-gonic/gin"
+	"log"
 	"net/http"
 )
 
@@ -17,6 +18,7 @@ type CreateTaskRequest struct {
 func CreateTaskHandler(c *gin.Context) {
 	var req CreateTaskRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
+		log.Fatalf("cannot bind json in create alice", err)
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
