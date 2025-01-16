@@ -9,7 +9,7 @@ import (
 
 // TryLogin адаптированная попытка авторизации
 func TryLogin(req LoginRequest) (*AuthResponse, error) {
-	authURL := "http://localhost:8881/auth/login"
+	authURL := "http://127.0.0.1:8881/auth/login"
 	jsonValue, _ := json.Marshal(req)
 
 	resp, err := http.Post(authURL, "application/json", bytes.NewBuffer(jsonValue))

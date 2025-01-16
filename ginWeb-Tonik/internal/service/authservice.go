@@ -49,6 +49,11 @@ func (s *AuthService) Register(ctx context.Context, req request.RegisterUserRequ
 		Role:     "user",
 		IP:       req.IP,
 	}
+	if user.Name == "" {
+		s.logger.Fatal("[ SERVICE_REGISTER ]", "null name")
+	} else if user.Email == "" {
+		s.logger.Fatal("[ SERVICE_REGISTER ]", "null email")
+	}
 
 	_, err = s.repo.Create(ctx, user, s.logger)
 	if err != nil {
