@@ -24,6 +24,7 @@ func NewRepo(db *gorm.DB, logger logger.Logger) *RepoImpl {
 
 func (r *RepoImpl) Create(ctx context.Context, us model.User, logger logger.Logger) (int64, error) {
 	if err := r.DB.WithContext(ctx).Create(&us).Error; err != nil {
+		logger.Fatal("[ REPO_CREATE ]", err.Error())
 		return 0, errors.New("cannot create new user")
 	}
 	return us.ID, nil

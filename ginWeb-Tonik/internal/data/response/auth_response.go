@@ -9,11 +9,11 @@ type AuthResponse struct {
 type UpdatePasswordResponse struct {
 	AccessToken  string `json:"access_token"`
 	RefreshToken string `json:"refresh_token"`
-	Name         string `json:"user_name"`
+	Name         string `json:"name"`
 }
 
 type UpdateIpResponse struct {
 	AccessToken  string `json:"access_token"`
 	RefreshToken string `json:"refresh_token"`
-	Name         string `json:"user_name"`
+	Name         string `json:"name"`
 }

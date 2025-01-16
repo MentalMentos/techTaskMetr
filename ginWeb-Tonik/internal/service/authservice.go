@@ -138,7 +138,6 @@ func (s *AuthService) UpdatePassword(ctx context.Context, req request.UpdateUser
 	}, nil
 }
 
-// Метод для обновления access token
 func (s *AuthService) GetAccessToken(ctx context.Context, refreshToken string) (*response.AuthResponse, error) {
 	// Валидация refresh token
 	claims, err := utils.ValidateJWT(refreshToken)
