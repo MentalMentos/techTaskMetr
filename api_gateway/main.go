@@ -19,6 +19,8 @@ func main() {
 	// Настройка маршрутов
 	alice_router.SetupRouter(router)
 
+	//TODO: logger
+
 	// Запуск сервера
 	srv := &http.Server{
 		Addr:    ":8880",
