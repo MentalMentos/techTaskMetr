@@ -14,7 +14,9 @@ CREATE TABLE tasks (
     title TEXT NOT NULL ,
     description TEXT,
     created_at TIMESTAMP NOT NULL DEFAULT now(),
-    status boolean NOT NULL
+    status boolean NOT NULL,
+    user_id INT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
 
 
