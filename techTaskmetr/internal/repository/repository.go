@@ -12,7 +12,7 @@ type Task interface {
 	Update(ctx *gin.Context, m *models.Task) error
 	Delete(ctx *gin.Context, m *models.Task) error
 	List(ctx *gin.Context) ([]models.Task, error)
-	GetById(ctx *gin.Context, id string) (models.Task, error)
+	GetByTitle(ctx *gin.Context, title string) (models.Task, error)
 }
 
 type Repository struct {

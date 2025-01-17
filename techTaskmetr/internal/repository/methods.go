@@ -52,8 +52,8 @@ func (r *RepoImpl) List(ctx *gin.Context) ([]models.Task, error) {
 
 func (r *RepoImpl) Update(ctx *gin.Context, m *models.Task) error {
 	newTask := request.UpdateTaskRequest{
-		Id:    m.Title,
-		Title: m.Description,
+		Title:       m.Title,
+		Description: m.Description,
 	}
 	if err := r.DB.WithContext(ctx).Updates(newTask).Error; err != nil {
 		r.logger.Fatal("[ REPOSITORY_UPDATE ]", "FailedToUpdateElement")
@@ -63,9 +63,9 @@ func (r *RepoImpl) Update(ctx *gin.Context, m *models.Task) error {
 	return nil
 }
 
-func (r *RepoImpl) GetById(ctx *gin.Context, id string) (models.Task, error) {
+func (r *RepoImpl) GetByTitle(ctx *gin.Context, title string) (models.Task, error) {
 	var m models.Task
-	if err := r.DB.WithContext(ctx).First(&m, "id = ?", id).Error; err != nil {
+	if err := r.DB.WithContext(ctx).First(&m, "title = ?", title).Error; err != nil {
 		r.logger.Fatal("[  REPOSITORY  ]", helpers.FailedToGetElements)
 		return m, err
 	}
