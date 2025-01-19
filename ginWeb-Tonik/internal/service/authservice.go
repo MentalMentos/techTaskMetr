@@ -104,6 +104,7 @@ func (s *AuthService) Login(ctx context.Context, req request.LoginRequest) (*res
 	return &response.AuthResponse{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
+		UserID:       user.ID,
 	}, nil
 }
 
