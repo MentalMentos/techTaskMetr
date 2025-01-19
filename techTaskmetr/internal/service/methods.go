@@ -29,7 +29,7 @@ func (s *TaskService) Create(ctx *gin.Context, req request.CreateTaskRequest) (*
 		Title:       req.Title,
 		Description: req.Description,
 		CreatedAt:   time.Now(),
-		Status:      req.Status == "true",
+		Status:      "false",
 	}
 	err := s.repo.Create(ctx, task)
 	if err != nil {
