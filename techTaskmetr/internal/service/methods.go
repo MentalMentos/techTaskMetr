@@ -25,6 +25,7 @@ func NewTaskService(repo *repository.Repository, logger logger.Logger) *TaskServ
 
 func (s *TaskService) Create(ctx *gin.Context, req request.CreateTaskRequest) (*response.TaskResponse, error) {
 	task := &models.Task{
+		UserID:      req.User_id,
 		Title:       req.Title,
 		Description: req.Description,
 		CreatedAt:   time.Now(),
@@ -46,11 +47,12 @@ func (s *TaskService) Create(ctx *gin.Context, req request.CreateTaskRequest) (*
 }
 
 func (s *TaskService) Update(ctx *gin.Context, req request.UpdateTaskRequest) (*response.TaskResponse, error) {
-	task, err := s.repo.GetByTitle(ctx, req.Title)
+	task, err := s.repo.GetByTitle(ctx, req.Title, req.User_id)
 	if err != nil {
 		s.logger.Fatal(helpers.FailedToUpdateElement, "failed to update element in service(get by title)")
 	}
 	task2 := &models.Task{
+		UserID:      req.User_id,
 		Title:       req.Title,
 		Description: req.Description,
 	}
@@ -70,7 +72,7 @@ func (s *TaskService) Update(ctx *gin.Context, req request.UpdateTaskRequest) (*
 }
 
 func (s *TaskService) Done(ctx *gin.Context, req request.DeleteTaskRequest) (*response.TaskResponse, error) {
-	task, err := s.repo.GetByTitle(ctx, req.Title)
+	task, err := s.repo.GetByTitle(ctx, req.Title, req.User_id)
 	if err != nil {
 		s.logger.Fatal("[ SERVICE_DONE ]", "failed to get element in service by id")
 		return nil, err
@@ -90,8 +92,8 @@ func (s *TaskService) Done(ctx *gin.Context, req request.DeleteTaskRequest) (*re
 	}, nil
 }
 
-func (s *TaskService) List(ctx *gin.Context) (*response.AllTasksResponse, error) {
-	tasks, err := s.repo.List(ctx)
+func (s *TaskService) List(ctx *gin.Context, user_id int64) (*response.AllTasksResponse, error) {
+	tasks, err := s.repo.List(ctx, user_id)
 	if err != nil {
 		s.logger.Fatal("[ SERVICE_LIST ]", helpers.FailedToGetElements)
 		return nil, err

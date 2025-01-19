@@ -29,7 +29,7 @@ func main() {
 	//validate := validator.New()
 	db.Table("users").AutoMigrate(&model.User{})
 
-	authRepository := repository.NewRepository(db, log)
+	authRepository := repository.NewRepository(db)
 	authService := service.New(authRepository, log)
 	authController := controller.NewAuthController(authService, log)
 

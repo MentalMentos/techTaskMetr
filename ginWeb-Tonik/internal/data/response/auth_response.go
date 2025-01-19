@@ -5,15 +5,3 @@ type AuthResponse struct {
 	RefreshToken string `json:"refresh_token"`
 	UserID       int64  `json:"user_id"`
 }
-
-type UpdatePasswordResponse struct {
-	AccessToken  string `json:"access_token"`
-	RefreshToken string `json:"refresh_token"`
-	Name         string `json:"name"`
-}
-
-type UpdateIpResponse struct {
-	AccessToken  string `json:"access_token"`
-	RefreshToken string `json:"refresh_token"`
-	Name         string `json:"name"`
-}

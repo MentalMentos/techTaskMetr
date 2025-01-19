@@ -17,10 +17,10 @@ import (
 )
 
 type Auth interface {
-	Register(ctx context.Context, req request.RegisterUserRequest, logger logger.Logger) (*model.AuthResponse, error)
-	Login(ctx context.Context, req request.LoginRequest, logger logger.Logger) (*model.AuthResponse, error)
-	GetAccessToken(ctx context.Context, refreshToken string, logger logger.Logger) (*response.AuthResponse, error)
-	UpdatePassword(ctx context.Context, req request.UpdateUserRequest, logger logger.Logger) (*response.UpdatePasswordResponse, error)
+	Register(ctx context.Context, req request.RegisterUserRequest) (*response.AuthResponse, error)
+	Login(ctx context.Context, req request.LoginRequest) (*response.AuthResponse, error)
+	GetAccessToken(ctx context.Context, refreshToken string) (*response.AuthResponse, error)
+	UpdatePassword(ctx context.Context, req request.UpdateUserRequest) (*response.AuthResponse, error)
 }
 
 type AuthService struct {
@@ -35,7 +35,7 @@ func NewAuthService(repo repository.Repository, logger logger.Logger) *AuthServi
 	}
 }
 
-func (s *AuthService) Register(ctx context.Context, req request.RegisterUserRequest) (*model.AuthResponse, error) {
+func (s *AuthService) Register(ctx context.Context, req request.RegisterUserRequest) (*response.AuthResponse, error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(req.Password), bcrypt.DefaultCost)
 	if err != nil {
 		s.logger.Fatal("[ SERVICE_REGISTER ]", helpers.FailedToHashPass)
@@ -55,7 +55,7 @@ func (s *AuthService) Register(ctx context.Context, req request.RegisterUserRequ
 		s.logger.Fatal("[ SERVICE_REGISTER ]", "null email")
 	}
 
-	_, err = s.repo.Create(ctx, user, s.logger)
+	user_id, err := s.repo.Create(ctx, user, s.logger)
 	if err != nil {
 		s.logger.Fatal("[ SERVICE_REGISTER ]", helpers.FailedToCreateUser)
 		return nil, err
@@ -67,13 +67,14 @@ func (s *AuthService) Register(ctx context.Context, req request.RegisterUserRequ
 		return nil, err
 	}
 
-	return &model.AuthResponse{
+	return &response.AuthResponse{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
+		UserID:       user_id,
 	}, nil
 }
 
-func (s *AuthService) Login(ctx context.Context, req request.LoginRequest) (*model.AuthResponse, error) {
+func (s *AuthService) Login(ctx context.Context, req request.LoginRequest) (*response.AuthResponse, error) {
 	user, err := s.repo.GetByEmail(ctx, req.Email, s.logger)
 	if err != nil {
 		s.logger.Fatal("[ SERVICE_LOGIN ]", helpers.FailedToGetUser)
@@ -100,13 +101,13 @@ func (s *AuthService) Login(ctx context.Context, req request.LoginRequest) (*mod
 		return nil, err
 	}
 
-	return &model.AuthResponse{
+	return &response.AuthResponse{
 		AccessToken:  accessToken,
 		RefreshToken: refreshToken,
 	}, nil
 }
 
-func (s *AuthService) UpdatePassword(ctx context.Context, req request.UpdateUserRequest) (*response.UpdatePasswordResponse, error) {
+func (s *AuthService) UpdatePassword(ctx context.Context, req request.UpdateUserRequest) (*response.AuthResponse, error) {
 	user, err := s.repo.GetByEmail(ctx, req.Email, s.logger)
 	if err != nil {
 		s.logger.Fatal("[ SERVICE_UPDATE_PASSWORD ]", helpers.FailedToGetUser)
@@ -131,10 +132,10 @@ func (s *AuthService) UpdatePassword(ctx context.Context, req request.UpdateUser
 		s.logger.Fatal("[ SERVICE_UPDATE_PASSWORD ]", "failed to generate access token")
 		return nil, err
 	}
-	return &response.UpdatePasswordResponse{
+	return &response.AuthResponse{
 		accessToken,
 		refreshToken,
-		req.Name,
+		user.ID,
 	}, nil
 }
 

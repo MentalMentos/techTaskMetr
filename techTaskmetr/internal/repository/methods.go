@@ -40,22 +40,23 @@ func (r *RepoImpl) Delete(ctx *gin.Context, m *models.Task) error {
 }
 
 // показывает все запланированные таски
-func (r *RepoImpl) List(ctx *gin.Context) ([]models.Task, error) {
+func (r *RepoImpl) List(ctx *gin.Context, user_id int64) ([]models.Task, error) {
 	var tasks []models.Task
-	if err := r.DB.WithContext(ctx).Find(&tasks, "status = ?", false).Error; err != nil {
-		r.logger.Fatal("[  Repository  ]", helpers.FailedToGetElements)
+	if err := r.DB.WithContext(ctx).Where("status = ? AND user_id = ?", "false", user_id).Find(&tasks).Error; err != nil {
+		r.logger.Fatal("[  Repository_list  ]", helpers.FailedToGetElements)
 		return tasks, err
 	}
-	r.logger.Info("[  Repository  ]", helpers.Success)
+	r.logger.Info("[  Repository_list  ]", helpers.Success)
 	return tasks, nil
 }
 
 func (r *RepoImpl) Update(ctx *gin.Context, m *models.Task) error {
 	newTask := request.UpdateTaskRequest{
+		User_id:     m.UserID,
 		Title:       m.Title,
 		Description: m.Description,
 	}
-	if err := r.DB.WithContext(ctx).Updates(newTask).Error; err != nil {
+	if err := r.DB.WithContext(ctx).Where("user_id = ?", m.UserID).Updates(newTask).Error; err != nil {
 		r.logger.Fatal("[ REPOSITORY_UPDATE ]", "FailedToUpdateElement")
 		return err
 	}
@@ -63,9 +64,19 @@ func (r *RepoImpl) Update(ctx *gin.Context, m *models.Task) error {
 	return nil
 }
 
-func (r *RepoImpl) GetByTitle(ctx *gin.Context, title string) (models.Task, error) {
+func (r *RepoImpl) GetByTitle(ctx *gin.Context, title string, user_id int64) (models.Task, error) {
 	var m models.Task
-	if err := r.DB.WithContext(ctx).First(&m, "title = ?", title).Error; err != nil {
+	if err := r.DB.WithContext(ctx).First(&m, "title = ? AND user_id = ?", title, user_id).Error; err != nil {
+		r.logger.Fatal("[  REPOSITORY  ]", helpers.FailedToGetElements)
+		return m, err
+	}
+	r.logger.Info("[  Repository  ]", helpers.Success)
+	return m, nil
+}
+
+func (r *RepoImpl) GetByID(ctx *gin.Context, id string, user_id int64) (models.Task, error) {
+	var m models.Task
+	if err := r.DB.WithContext(ctx).First(&m, "id = ? AND user_id = ?", id, user_id).Error; err != nil {
 		r.logger.Fatal("[  REPOSITORY  ]", helpers.FailedToGetElements)
 		return m, err
 	}

@@ -22,6 +22,6 @@ type Repo struct {
 	Repository
 }
 
-func NewRepository(db *gorm.DB, mylogger logger.Logger) *Repo {
-	return &Repo{NewRepo(db, mylogger)}
+func NewRepository(db *gorm.DB) *Repo {
+	return &Repo{NewRepo(db)}
 }

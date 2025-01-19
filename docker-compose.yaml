@@ -17,8 +17,8 @@ services:
 
   migrator:
     build:
-      context: .
-      dockerfile: ./techTaskMetr/migration.Dockerfile
+      context: techTaskmetr
+      dockerfile: ./migration.Dockerfile
     depends_on:
       pg:
         condition: service_healthy
@@ -28,17 +28,20 @@ services:
 
   backend:
     build:
-      context: .
+      context: techTaskmetr
     environment:
       DB_HOST: pg
       DB_PORT: 5432
-      DB_NAME: tasks_db
+      DB_NAME: postgres
       DB_USER: user
       DB_PASSWORD: password
     depends_on:
       - pg
     ports:
-      - "8882:8882"
+      - "0.0.0.0:8882:8882" # Доступ для всех хостов на порту 8882
+      - "0.0.0.0:8881:8881" # Доступ для всех хостов на порту 8881
+    networks:
+      - app_network
 
   prometheus:
     image: prom/prometheus:latest
@@ -53,6 +56,10 @@ services:
       - "3000:3000"
     volumes:
       - grafana_data:/var/lib/grafana
+
+networks:
+  app_network:
+    driver: bridge
 
 volumes:
   postgres_data:
