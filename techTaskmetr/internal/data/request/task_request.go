@@ -1,10 +1,10 @@
 package request
 
 type CreateTaskRequest struct {
-	User_id     int64  `json:"user_id"`
+	User_id     int64  `json:"-"`
 	Title       string `json:"title" validate:"required"`       // Название задачи (обязательно)
 	Description string `json:"description" validate:"required"` // Описание задачи (обязательно)
-	Status      string `json:"status" validate:"required"`      //bool
+	Status      string `json:"status" validate:"required"`
 }
 
 type UpdateTaskRequest struct {
