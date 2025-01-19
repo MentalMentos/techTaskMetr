@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"github.com/MentalMentos/techTaskMetr.git/internal/data/request"
 	"github.com/MentalMentos/techTaskMetr.git/internal/service"
 	"github.com/MentalMentos/techTaskMetr.git/pkg/logger"
@@ -84,11 +85,8 @@ func (controller *Controller) Create(c *gin.Context) {
 		return
 	}
 
-	int_id, err := strconv.Atoi(userID.(string))
-	if err != nil {
-		HandleError(c, &ApiError{Code: http.StatusBadRequest, Message: "Invalid user id to convert"})
-	}
-	taskRequest.User_id = int64(int_id)
+	id, err := strconv.ParseInt(fmt.Sprintf("%v", userID), 10, 64)
+	taskRequest.User_id = id
 	taskResp, err := controller.Service.Create(c, taskRequest)
 	if err != nil {
 		HandleError(c, err)
