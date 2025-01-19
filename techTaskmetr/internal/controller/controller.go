@@ -8,6 +8,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -83,7 +84,11 @@ func (controller *Controller) Create(c *gin.Context) {
 		return
 	}
 
-	taskRequest.User_id = int64(userID.(int))
+	int_id, err := strconv.Atoi(userID.(string))
+	if err != nil {
+		HandleError(c, &ApiError{Code: http.StatusBadRequest, Message: "Invalid user id to convert"})
+	}
+	taskRequest.User_id = int64(int_id)
 	taskResp, err := controller.Service.Create(c, taskRequest)
 	if err != nil {
 		HandleError(c, err)
