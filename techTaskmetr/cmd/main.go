@@ -26,7 +26,7 @@ func main() {
 
 	// Инициализация базы данных
 	db := config.DatabaseConnection(myLogger)
-	db.Table("users").AutoMigrate(&models.Task{})
+	db.Table("tasks").AutoMigrate(&models.Task{})
 
 	// Инициализация зависимостей
 	taskRepository := repository.New(db, myLogger)
