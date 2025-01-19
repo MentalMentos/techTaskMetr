@@ -18,8 +18,3 @@ CREATE TABLE tasks (
     user_id INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
-
-
--- +goose Down
-DROP TABLE IF EXISTS tasks;
-DROP TABLE IF EXISTS users;

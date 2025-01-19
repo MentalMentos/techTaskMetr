@@ -10,10 +10,14 @@ import (
 	"github.com/gin-gonic/gin"
 	_ "github.com/gin-gonic/gin"
 	_ "github.com/go-playground/validator/v10"
+	"github.com/joho/godotenv"
 	"net/http"
 )
 
 func main() {
+	if err := godotenv.Load("../.env"); err != nil {
+		panic(".env file not found")
+	}
 	router := gin.Default()
 	router.SetTrustedProxies(nil) // Доверять всем прокси
 	router.GET("/", func(ctx *gin.Context) {
