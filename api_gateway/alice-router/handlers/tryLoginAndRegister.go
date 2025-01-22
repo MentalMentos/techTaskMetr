@@ -39,7 +39,7 @@ func TryRegister(req RegisterRequest) (*AuthResponse, error) {
 	}
 	defer resp.Body.Close()
 
-	if resp.StatusCode != http.StatusCreated {
+	if resp.StatusCode != 200 {
 		return nil, fmt.Errorf("регистрация не удалась")
 	}
 
