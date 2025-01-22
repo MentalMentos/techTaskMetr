@@ -9,7 +9,10 @@ import (
 
 func TryLogin(req LoginRequest) (*AuthResponse, error) {
 	authURL := "http://localhost:8881/auth/login"
-	jsonValue, _ := json.Marshal(req)
+	jsonValue, err := json.Marshal(req)
+	if err != nil {
+		return nil, err
+	}
 
 	resp, err := http.Post(authURL, "application/json", bytes.NewBuffer(jsonValue))
 	if err != nil {
@@ -31,7 +34,10 @@ func TryLogin(req LoginRequest) (*AuthResponse, error) {
 
 func TryRegister(req RegisterRequest) (*AuthResponse, error) {
 	registerURL := "http://localhost:8881/auth/register"
-	jsonValue, _ := json.Marshal(req)
+	jsonValue, err := json.Marshal(req)
+	if err != nil {
+		return nil, err
+	}
 
 	resp, err := http.Post(registerURL, "application/json", bytes.NewBuffer(jsonValue))
 	if err != nil {
