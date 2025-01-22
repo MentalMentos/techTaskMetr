@@ -23,7 +23,7 @@ func CreateTaskHandler(c *gin.Context) {
 		return
 	}
 
-	token, exists := c.Get("token")
+	token, exists := c.Get("accesstoken")
 	if !exists {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Токен не найден"})
 		return

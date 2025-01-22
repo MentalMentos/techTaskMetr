@@ -7,48 +7,46 @@ import (
 	"net/http"
 )
 
-// TryLogin адаптированная попытка авторизации
 func TryLogin(req LoginRequest) (*AuthResponse, error) {
 	authURL := "http://127.0.0.1:8881/auth/login"
 	jsonValue, _ := json.Marshal(req)
 
 	resp, err := http.Post(authURL, "application/json", bytes.NewBuffer(jsonValue))
 	if err != nil {
-		return nil, fmt.Errorf("Ошибка подключения к auth: %v", err)
+		return nil, fmt.Errorf("ошибка подключения к auth: %v", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("Авторизация не удалась")
+		return nil, fmt.Errorf("авторизация не удалась")
 	}
 
 	var authResp AuthResponse
 	if err := json.NewDecoder(resp.Body).Decode(&authResp); err != nil {
-		return nil, fmt.Errorf("Ошибка обработки ответа от auth: %v", err)
+		return nil, fmt.Errorf("ошибка обработки ответа от auth: %v", err)
 	}
 
 	return &authResp, nil
 }
 
-// TryRegister адаптированная попытка регистрации
 func TryRegister(req RegisterRequest) (*AuthResponse, error) {
-	registerURL := "http://localhost:8881/auth/register"
+	registerURL := "http://127.0.0.1:8881/auth/register"
 	jsonValue, _ := json.Marshal(req)
 
 	resp, err := http.Post(registerURL, "application/json", bytes.NewBuffer(jsonValue))
 	if err != nil {
-		return nil, fmt.Errorf("Ошибка подключения к auth: %v", err)
+		return nil, fmt.Errorf("ошибка подключения к auth: %v", err)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusCreated {
-		return nil, fmt.Errorf("Регистрация не удалась")
+		return nil, fmt.Errorf("регистрация не удалась")
 	}
 
-	// После успешной регистрации выполняем авторизацию
-	loginReq := LoginRequest{
-		Email:    req.Email,
-		Password: req.Password,
+	var authResp AuthResponse
+	if err := json.NewDecoder(resp.Body).Decode(&authResp); err != nil {
+		return nil, fmt.Errorf("ошибка обработки ответа от auth: %v", err)
 	}
-	return TryLogin(loginReq)
+
+	return &authResp, nil
 }

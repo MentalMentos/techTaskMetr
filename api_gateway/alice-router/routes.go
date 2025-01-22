@@ -6,7 +6,6 @@ import (
 	"net/http"
 )
 
-// SetupRouter настройка маршрутов
 func SetupRouter(router *gin.Engine) {
 	// Приветственное сообщение
 	router.GET("/", func(c *gin.Context) {
@@ -14,6 +13,9 @@ func SetupRouter(router *gin.Engine) {
 			"message": "Привет, я Alice! Добро пожаловать в задачник!",
 		})
 	})
+
+	// Ручка для регистрации
+	router.POST("/register", handlers.RegisterUserHandler)
 
 	// Группа маршрутов с middleware авторизации
 	authRoutes := router.Group("/alice")
