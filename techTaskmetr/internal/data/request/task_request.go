@@ -22,8 +22,5 @@ type DeleteTaskRequest struct {
 }
 
 type GetTaskRequest struct {
-	User_id     int64  `json:"user_id"`
-	Title       string `json:"title" binding:"required"`
-	Description string `json:"description" binding:"required"`
-	Status      string `json:"status" binding:"required"`
+	User_id int64 `json:"user_id"`
 }
