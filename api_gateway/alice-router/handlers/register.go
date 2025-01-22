@@ -32,3 +32,30 @@ func RegisterUserHandler(c *gin.Context) {
 		"user_id":       authResp.UserID,
 	})
 }
+
+func LoginUserHandler(c *gin.Context) {
+	var loginReq LoginRequest
+
+	// Проверяем входящие данные
+	if err := c.ShouldBindJSON(&loginReq); err != nil {
+		log.Printf("Ошибка регистрации: %v", err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": "Некорректные данные для регистрации"})
+		return
+	}
+
+	// Попытка регистрации
+	authResp, err := TryLogin(loginReq)
+	if err != nil {
+		log.Printf("Ошибка регистрации: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Не удалось зарегистрировать пользователя"})
+		return
+	}
+
+	// Возвращаем успешный ответ с токенами
+	c.JSON(http.StatusCreated, gin.H{
+		"message":       "Пользователь успешно зарегистрирован!",
+		"access_token":  authResp.AccessToken,
+		"refresh_token": authResp.RefreshToken,
+		"user_id":       authResp.UserID,
+	})
+}
