@@ -41,9 +41,9 @@ func (r *RepoImpl) Delete(ctx *gin.Context, m *models.Task) error {
 }
 
 // показывает все запланированные таски
-func (r *RepoImpl) List(ctx *gin.Context, user_id int64) ([]models.Task, error) {
+func (r *RepoImpl) List(ctx *gin.Context, user_id int) ([]models.Task, error) {
 	var tasks []models.Task
-	if err := r.DB.WithContext(ctx).Where("status = ? AND user_id = ?", "false", user_id).Find(&tasks).Error; err != nil {
+	if err := r.DB.WithContext(ctx).Where("user_id = ?", user_id).Find(&tasks).Error; err != nil {
 		r.logger.Fatal("[  Repository_list  ]", helpers.FailedToGetElements)
 		return tasks, err
 	}
@@ -67,7 +67,7 @@ func (r *RepoImpl) Update(ctx *gin.Context, m *models.Task) error {
 	return nil
 }
 
-func (r *RepoImpl) GetByTitle(ctx *gin.Context, title string, user_id int64) (models.Task, error) {
+func (r *RepoImpl) GetByTitle(ctx *gin.Context, title string, user_id int) (models.Task, error) {
 	var m models.Task
 	if err := r.DB.WithContext(ctx).First(&m, "title = ? AND user_id = ?", title, user_id).Error; err != nil {
 		r.logger.Fatal("[  REPOSITORY  ]", helpers.FailedToGetElements)
@@ -77,7 +77,7 @@ func (r *RepoImpl) GetByTitle(ctx *gin.Context, title string, user_id int64) (mo
 	return m, nil
 }
 
-func (r *RepoImpl) GetByID(ctx *gin.Context, id string, user_id int64) (models.Task, error) {
+func (r *RepoImpl) GetByID(ctx *gin.Context, id string, user_id int) (models.Task, error) {
 	var m models.Task
 	if err := r.DB.WithContext(ctx).First(&m, "id = ? AND user_id = ?", id, user_id).Error; err != nil {
 		r.logger.Fatal("[  REPOSITORY  ]", helpers.FailedToGetElements)

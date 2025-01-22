@@ -20,7 +20,7 @@ func NewRepo(db *gorm.DB) *RepoImpl {
 	}
 }
 
-func (r *RepoImpl) Create(ctx context.Context, us model.User, logger logger.Logger) (int64, error) {
+func (r *RepoImpl) Create(ctx context.Context, us model.User, logger logger.Logger) (int, error) {
 	if err := r.DB.WithContext(ctx).Create(&us).Error; err != nil {
 		logger.Fatal("[ REPO_CREATE ]", err.Error())
 		return 0, errors.New("cannot create new user")
@@ -29,7 +29,7 @@ func (r *RepoImpl) Create(ctx context.Context, us model.User, logger logger.Logg
 	return us.ID, nil
 }
 
-func (r *RepoImpl) Update(ctx context.Context, us model.User, logger logger.Logger) (int64, error) {
+func (r *RepoImpl) Update(ctx context.Context, us model.User, logger logger.Logger) (int, error) {
 	updateData := request.UpdateUserRequest{
 		Name:  us.Name,
 		Email: us.Email,
@@ -43,7 +43,7 @@ func (r *RepoImpl) Update(ctx context.Context, us model.User, logger logger.Logg
 	return us.ID, nil
 }
 
-func (r *RepoImpl) Delete(ctx context.Context, usId int64, logger logger.Logger) error {
+func (r *RepoImpl) Delete(ctx context.Context, usId int, logger logger.Logger) error {
 	if err := r.DB.WithContext(ctx).Delete(&model.User{}, usId).Error; err != nil {
 		logger.Fatal("[ REPO_DELETE ]", err.Error())
 		return errors.New("cannot delete user")
@@ -79,7 +79,7 @@ func (r *RepoImpl) GetByEmail(ctx context.Context, email string, logger logger.L
 	return user, nil
 }
 
-func (r *RepoImpl) GetByID(ctx context.Context, userID int64, logger logger.Logger) (model.User, error) {
+func (r *RepoImpl) GetByID(ctx context.Context, userID int, logger logger.Logger) (model.User, error) {
 	var user model.User
 	if err := r.DB.WithContext(ctx).First(&user, userID).Error; err != nil {
 		if errors.Is(err, gorm.ErrRecordNotFound) {
