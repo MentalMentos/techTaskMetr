@@ -30,7 +30,7 @@ func TryLogin(req LoginRequest) (*AuthResponse, error) {
 }
 
 func TryRegister(req RegisterRequest) (*AuthResponse, error) {
-	registerURL := "http://register:8881/auth/register"
+	registerURL := "http://localhost:8881/auth/register"
 	jsonValue, _ := json.Marshal(req)
 
 	resp, err := http.Post(registerURL, "application/json", bytes.NewBuffer(jsonValue))
