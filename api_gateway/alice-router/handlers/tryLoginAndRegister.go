@@ -8,7 +8,7 @@ import (
 )
 
 func TryLogin(req LoginRequest) (*AuthResponse, error) {
-	authURL := "http://127.0.0.1:8881/auth/login"
+	authURL := "http://localhost:8881/auth/login"
 	jsonValue, _ := json.Marshal(req)
 
 	resp, err := http.Post(authURL, "application/json", bytes.NewBuffer(jsonValue))
@@ -30,7 +30,7 @@ func TryLogin(req LoginRequest) (*AuthResponse, error) {
 }
 
 func TryRegister(req RegisterRequest) (*AuthResponse, error) {
-	registerURL := "http://127.0.0.1:8881/auth/register"
+	registerURL := "http://register:8881/auth/register"
 	jsonValue, _ := json.Marshal(req)
 
 	resp, err := http.Post(registerURL, "application/json", bytes.NewBuffer(jsonValue))
