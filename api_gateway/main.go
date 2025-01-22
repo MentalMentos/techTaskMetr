@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	alice_router "github.com/MentalMentos/api_gateway/alice-router"
 	"log"
 	"net/http"
 	"os"
@@ -9,7 +10,6 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/MentalMentos/api_gateway/alice-router"
 	"github.com/gin-gonic/gin"
 )
 
