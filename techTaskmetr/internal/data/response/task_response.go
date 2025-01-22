@@ -1,18 +1,18 @@
 package response
 
 import (
-	"github.com/MentalMentos/techTaskMetr.git/internal/models"
 	"time"
 )
 
 type TaskResponse struct {
-	ID          int       `json:"id"`          // Уникальный идентификатор задачи
-	Title       string    `json:"title"`       // Название задачи
-	Description string    `json:"description"` // Описание задачи
-	CreatedAt   time.Time `json:"created_at"`  // Дата и время создания задачи
-	Status      string    `json:"status"`      //0-незавершённая 1-завершённая
+	ID          int       `gorm:"id" json:"id"`                   // Уникальный идентификатор задачи
+	Title       string    `gorm:"title" json:"title"`             // Название задачи
+	Description string    `gorm:"description" json:"description"` // Описание задачи
+	CreatedAt   time.Time `gorm:"created_at" json:"created_at"`   // Дата и время создания задачи
+	Status      string    `gorm:"status" json:"status"`           //0-незавершённая 1-завершённая
+	UserID      int       `gorm:"user_id" json:"user_id"`
 }
 
 type AllTasksResponse struct {
-	Tasks []models.Task `json:"tasks"`
+	Tasks []TaskResponse `json:"tasks"`
 }

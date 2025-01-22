@@ -3,6 +3,7 @@ package repository
 import (
 	"fmt"
 	"github.com/MentalMentos/techTaskMetr.git/internal/data/request"
+	"github.com/MentalMentos/techTaskMetr.git/internal/data/response"
 	"github.com/MentalMentos/techTaskMetr.git/internal/models"
 	"github.com/MentalMentos/techTaskMetr.git/pkg/helpers"
 	"github.com/MentalMentos/techTaskMetr.git/pkg/logger"
@@ -24,7 +25,7 @@ func NewTaskRepo(DB *gorm.DB, logger logger.Logger) *RepoImpl {
 
 func (r *RepoImpl) Create(ctx *gin.Context, m *models.Task) error {
 	if err := r.DB.WithContext(ctx).Create(&m).Error; err != nil {
-		r.logger.Fatal("[  Repository  ]", helpers.FailedToCreateElement)
+		r.logger.Debug("[  Repository  ]", helpers.FailedToCreateElement)
 		return err
 	}
 	r.logger.Info("[  Repository  ]", helpers.Success)
@@ -33,7 +34,7 @@ func (r *RepoImpl) Create(ctx *gin.Context, m *models.Task) error {
 
 func (r *RepoImpl) Delete(ctx *gin.Context, m *models.Task) error {
 	if err := r.DB.WithContext(ctx).Delete(&m).Error; err != nil {
-		r.logger.Fatal("[  Repository  ]", helpers.FailedToDeleteElement)
+		r.logger.Debug("[  Repository  ]", helpers.FailedToDeleteElement)
 		return err
 	}
 	r.logger.Info("[  Repository  ]", helpers.Success)
@@ -41,10 +42,10 @@ func (r *RepoImpl) Delete(ctx *gin.Context, m *models.Task) error {
 }
 
 // показывает все запланированные таски
-func (r *RepoImpl) List(ctx *gin.Context, user_id int) ([]models.Task, error) {
-	var tasks []models.Task
+func (r *RepoImpl) List(ctx *gin.Context, user_id int) ([]response.TaskResponse, error) {
+	var tasks []response.TaskResponse
 	if err := r.DB.WithContext(ctx).Where("user_id = ?", user_id).Find(&tasks).Error; err != nil {
-		r.logger.Fatal("[  Repository_list  ]", helpers.FailedToGetElements)
+		r.logger.Debug("[  Repository_list  ]", helpers.FailedToGetElements)
 		return tasks, err
 	}
 	log_task := fmt.Sprintf("%v", tasks)
@@ -60,7 +61,7 @@ func (r *RepoImpl) Update(ctx *gin.Context, m *models.Task) error {
 		Description: m.Description,
 	}
 	if err := r.DB.WithContext(ctx).Where("user_id = ?", m.UserID).Updates(newTask).Error; err != nil {
-		r.logger.Fatal("[ REPOSITORY_UPDATE ]", "FailedToUpdateElement")
+		r.logger.Debug("[ REPOSITORY_UPDATE ]", "FailedToUpdateElement")
 		return err
 	}
 	r.logger.Info("[  Repository  ]", helpers.Success)
@@ -70,7 +71,7 @@ func (r *RepoImpl) Update(ctx *gin.Context, m *models.Task) error {
 func (r *RepoImpl) GetByTitle(ctx *gin.Context, title string, user_id int) (models.Task, error) {
 	var m models.Task
 	if err := r.DB.WithContext(ctx).First(&m, "title = ? AND user_id = ?", title, user_id).Error; err != nil {
-		r.logger.Fatal("[  REPOSITORY  ]", helpers.FailedToGetElements)
+		r.logger.Debug("[  REPOSITORY  ]", helpers.FailedToGetElements)
 		return m, err
 	}
 	r.logger.Info("[  Repository  ]", helpers.Success)
@@ -80,7 +81,7 @@ func (r *RepoImpl) GetByTitle(ctx *gin.Context, title string, user_id int) (mode
 func (r *RepoImpl) GetByID(ctx *gin.Context, id string, user_id int) (models.Task, error) {
 	var m models.Task
 	if err := r.DB.WithContext(ctx).First(&m, "id = ? AND user_id = ?", id, user_id).Error; err != nil {
-		r.logger.Fatal("[  REPOSITORY  ]", helpers.FailedToGetElements)
+		r.logger.Debug("[  REPOSITORY  ]", helpers.FailedToGetElements)
 		return m, err
 	}
 	r.logger.Info("[  Repository  ]", helpers.Success)

@@ -43,6 +43,7 @@ func (s *TaskService) Create(ctx *gin.Context, req request.CreateTaskRequest) (*
 		task.Description,
 		task.CreatedAt,
 		task.Status,
+		task.UserID,
 	}, nil
 }
 
