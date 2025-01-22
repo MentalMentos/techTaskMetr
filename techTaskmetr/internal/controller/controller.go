@@ -120,7 +120,7 @@ func (controller *Controller) Done(c *gin.Context) {
 
 func (controller *Controller) List(c *gin.Context) {
 	var taskRequest request.GetTaskRequest
-	if err := c.ShouldBindQuery(&taskRequest); err != nil {
+	if err := c.ShouldBindJSON(&taskRequest); err != nil {
 		HandleError(c, &ApiError{Code: http.StatusBadRequest, Message: "Invalid request payload"})
 		return
 	}
