@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"fmt"
 	"github.com/MentalMentos/techTaskMetr.git/internal/data/request"
 	"github.com/MentalMentos/techTaskMetr.git/internal/service"
 	"github.com/MentalMentos/techTaskMetr.git/pkg/logger"
@@ -9,7 +8,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"net/http"
-	"strconv"
 	"time"
 )
 
@@ -79,14 +77,6 @@ func (controller *Controller) Create(c *gin.Context) {
 		return
 	}
 
-	userID, exists := c.Get("user_id")
-	if !exists {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authorized"})
-		return
-	}
-
-	id, err := strconv.ParseInt(fmt.Sprintf("%v", userID), 10, 64)
-	taskRequest.User_id = id
 	taskResp, err := controller.Service.Create(c, taskRequest)
 	if err != nil {
 		HandleError(c, err)
@@ -103,12 +93,6 @@ func (controller *Controller) Update(c *gin.Context) {
 		return
 	}
 
-	userID, exists := c.Get("user_id")
-	if !exists {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authorized"})
-		return
-	}
-	taskRequest.User_id = int64(userID.(int))
 	taskResp, err := controller.Service.Update(c, taskRequest)
 	if err != nil {
 		HandleError(c, err)
@@ -140,14 +124,6 @@ func (controller *Controller) List(c *gin.Context) {
 		HandleError(c, &ApiError{Code: http.StatusBadRequest, Message: "Invalid request payload"})
 		return
 	}
-
-	userID, exists := c.Get("user_id")
-	if !exists {
-		c.JSON(http.StatusUnauthorized, gin.H{"error": "User not authorized"})
-		return
-	}
-	taskRequest.User_id = int64(userID.(int))
-
 	taskResp, err := controller.Service.List(c, taskRequest.User_id)
 	if err != nil {
 		HandleError(c, err)
