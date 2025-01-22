@@ -8,8 +8,8 @@ import (
 )
 
 type Repository interface {
-	Create(ctx context.Context, us model.User, logger logger.Logger) (int64, error)
-	Update(ctx context.Context, us model.User, logger logger.Logger) (int64, error)
+	Create(ctx context.Context, us model.User, logger logger.Logger) (int, error)
+	Update(ctx context.Context, us model.User, logger logger.Logger) (int, error)
 	Delete(ctx context.Context, usId int, logger logger.Logger) error
 	UpdatePassword(ctx context.Context, us model.User, hashPassword string, logger logger.Logger) (model.User, error)
 	UpdateIP(ctx context.Context, us model.User, ip string, logger logger.Logger) (model.User, error)

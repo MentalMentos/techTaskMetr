@@ -8,13 +8,13 @@ import (
 var jwtSecret = []byte("secret_key")
 
 type Claims struct {
-	UserID int64  `json:"user_id"`
+	UserID int    `json:"user_id"`
 	Role   string `json:"role"`
 	jwt.RegisteredClaims
 }
 
 // GenerateJWT создает access и refresh токены.
-func GenerateJWT(userID int64, role string) (accessToken string, refreshToken string, err error) {
+func GenerateJWT(userID int, role string) (accessToken string, refreshToken string, err error) {
 	// Генерация Access Token
 	accessClaims := &Claims{
 		UserID: userID,

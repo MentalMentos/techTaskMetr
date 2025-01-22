@@ -9,7 +9,7 @@ import (
 
 // DoneTaskRequest структура запроса для завершения задачи
 type DoneTaskRequest struct {
-	ID          string `json:"id" binding:"required"`          // Уникальный идентификатор задачи
+	ID          int    `json:"id" binding:"required"`          // Уникальный идентификатор задачи
 	Title       string `json:"title" binding:"required"`       // Название задачи
 	Description string `json:"description" binding:"required"` // Описание задачи
 	Status      string `json:"status" binding:"required"`      // Новый статус задачи
