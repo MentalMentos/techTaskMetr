@@ -13,6 +13,11 @@ type TaskResponse struct {
 	UserID      int       `gorm:"user_id" json:"user_id"`
 }
 
+// Указываем GORM, что эта структура соответствует таблице tasks
+func (TaskResponse) TableName() string {
+	return "tasks"
+}
+
 type AllTasksResponse struct {
 	Tasks []TaskResponse `json:"tasks"`
 }
