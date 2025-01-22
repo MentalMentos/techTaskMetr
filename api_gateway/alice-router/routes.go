@@ -19,7 +19,7 @@ func SetupRouter(router *gin.Engine) {
 	authRoutes.Use(handlers.AuthMiddleware) // Подключаем middleware
 	// Ручка для регистрации
 	router.POST("/register", handlers.RegisterUserHandler)
-	router.POST("/login", handlers.Lo)
+	router.POST("/login", handlers.LoginUserHandler)
 	// Ручки задачника
 	{
 		authRoutes.POST("/create", handlers.CreateTaskHandler)
