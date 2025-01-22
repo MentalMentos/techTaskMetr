@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"fmt"
 	"github.com/MentalMentos/techTaskMetr.git/internal/data/request"
 	"github.com/MentalMentos/techTaskMetr.git/internal/models"
 	"github.com/MentalMentos/techTaskMetr.git/pkg/helpers"
@@ -46,6 +47,8 @@ func (r *RepoImpl) List(ctx *gin.Context, user_id int64) ([]models.Task, error) 
 		r.logger.Fatal("[  Repository_list  ]", helpers.FailedToGetElements)
 		return tasks, err
 	}
+	log_task := fmt.Sprintf("%v", tasks)
+	r.logger.Info("[  Repository_list ]", log_task)
 	r.logger.Info("[  Repository_list  ]", helpers.Success)
 	return tasks, nil
 }
