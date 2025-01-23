@@ -1,4 +1,4 @@
-package controller
+package authcontroller
 
 import (
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/data/request"
