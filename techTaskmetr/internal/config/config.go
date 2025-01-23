@@ -2,8 +2,9 @@ package config
 
 import (
 	"fmt"
-	"github.com/MentalMentos/techTaskMetr.git/pkg/helpers"
-	"github.com/MentalMentos/techTaskMetr.git/pkg/logger"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/helpers"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
+
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"os"

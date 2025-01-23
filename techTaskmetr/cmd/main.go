@@ -1,13 +1,17 @@
 package main
 
 import (
-	"github.com/MentalMentos/techTaskMetr.git/internal/config"
-	"github.com/MentalMentos/techTaskMetr.git/internal/controller"
-	"github.com/MentalMentos/techTaskMetr.git/internal/models"
-	"github.com/MentalMentos/techTaskMetr.git/internal/repository"
-	"github.com/MentalMentos/techTaskMetr.git/internal/routes"
-	"github.com/MentalMentos/techTaskMetr.git/internal/service"
-	zaplogger "github.com/MentalMentos/techTaskMetr.git/pkg/logger/zap"
+	authcontroller "github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/controller"
+	usermodel "github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/model"
+	authrepository "github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/repository"
+	authservice "github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/service"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/config"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/controller"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/models"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/repository"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/service"
+	zaplogger "github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger/zap"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/routes"
 	_ "github.com/gin-gonic/gin"
 	_ "github.com/go-playground/validator/v10"
 	"github.com/joho/godotenv"
@@ -33,8 +37,14 @@ func main() {
 	taskService := service.NewService(taskRepository, myLogger)
 	taskController := controller.NewController(taskService, myLogger)
 
+	//todo auth
+	db.Table("users").AutoMigrate(&usermodel.User{})
+
+	authRepository := authrepository.NewRepository(db)
+	authService := authservice.New(authRepository, myLogger)
+	authController := authcontroller.NewAuthController(authService, myLogger)
 	// Маршруты
-	router := routes.SetupRouter(taskController)
+	router := routes.SetupRouter(authController, taskController)
 
 	// Запуск приложения
 	if err := router.Run(":8882"); err != nil {

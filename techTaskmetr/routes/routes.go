@@ -1,13 +1,13 @@
 package routes
 
 import (
-	_ "context"
-	"github.com/MentalMentos/techTaskMetr.git/internal/controller"
+	authcontroller "github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/controller"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/controller"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func SetupRouter(authController controller.AuthController) *gin.Engine {
+func SetupRouter(authController *authcontroller.AuthController, controller *controller.Controller) *gin.Engine {
 	router := gin.Default()
 
 	router.SetTrustedProxies(nil) // Доверять всем прокси
@@ -27,6 +27,20 @@ func SetupRouter(authController controller.AuthController) *gin.Engine {
 		authRoutes.POST("/refresh", authController.RefreshToken)          // Обновление токена
 		authRoutes.PUT("/update-password", authController.UpdatePassword) // Обновление пароля
 	}
+
+	taskRoutes := router.Group("/tasks")
+	{
+		taskRoutes.POST("/create", controller.Create)
+		taskRoutes.POST("/done", controller.Done)
+		taskRoutes.POST("/update", controller.Update)
+		taskRoutes.GET("/list", controller.List)
+		taskRoutes.POST("/create-with-metrics", controller.TaskWithMetrics)
+		taskRoutes.POST("/update-with-metrics", controller.TaskWithMetrics)
+		taskRoutes.POST("/done-with-metrics", controller.TaskWithMetrics)
+		taskRoutes.GET("/list-with-metrics", controller.TaskWithMetrics)
+	}
+
+	router.GET("/metrics", controller.MetricsHandler)
 
 	return router
 }

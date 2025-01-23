@@ -2,8 +2,9 @@ package repository
 
 import (
 	"context"
-	"github.com/MentalMentos/ginWeb-Tonik/ginWeb/internal/model"
-	"github.com/MentalMentos/ginWeb-Tonik/ginWeb/pkg/logger"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/model"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/pkg/logger"
+
 	"gorm.io/gorm"
 )
 
