@@ -1,6 +1,6 @@
 module github.com/MentalMentos/techTaskMetr/techTaskmetr
 
-go 1.23.2
+go 1.23.5
 
 require (
 	github.com/gin-gonic/gin v1.10.0
