@@ -8,8 +8,8 @@ import (
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/model"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/repository"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/pkg/helpers"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/pkg/utils"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/utils"
 
 	"golang.org/x/crypto/bcrypt"
 )

@@ -1,4 +1,4 @@
-module github.com/MentalMentos/techTaskMetr/techTaskmetr.git
+module github.com/MentalMentos/techTaskMetr/techTaskmetr
 
 go 1.23.2
 
