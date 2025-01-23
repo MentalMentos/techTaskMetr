@@ -1,7 +1,6 @@
 package controller
 
 import (
-	"github.com/MentalMentos/techTaskMetr.git/internal/data/response"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

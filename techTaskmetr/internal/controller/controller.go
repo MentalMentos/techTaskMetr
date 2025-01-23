@@ -1,9 +1,6 @@
 package controller
 
 import (
-	"github.com/MentalMentos/techTaskMetr.git/internal/data/request"
-	"github.com/MentalMentos/techTaskMetr.git/internal/service"
-	"github.com/MentalMentos/techTaskMetr.git/pkg/logger"
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"

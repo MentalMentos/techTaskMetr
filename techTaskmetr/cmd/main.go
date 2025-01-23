@@ -1,10 +1,6 @@
 package main
 
 import (
-	authcontroller "github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/controller"
-	usermodel "github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/model"
-	authrepository "github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/repository"
-	authservice "github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/service"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/config"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/controller"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/models"

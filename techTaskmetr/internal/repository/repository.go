@@ -1,9 +1,6 @@
 package repository
 
 import (
-	"github.com/MentalMentos/techTaskMetr.git/internal/data/response"
-	"github.com/MentalMentos/techTaskMetr.git/internal/models"
-	"github.com/MentalMentos/techTaskMetr.git/pkg/logger"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

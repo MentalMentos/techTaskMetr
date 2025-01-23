@@ -1,7 +1,6 @@
 package alice_router
 
 import (
-	"github.com/MentalMentos/api_gateway/alice-router/handlers"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )

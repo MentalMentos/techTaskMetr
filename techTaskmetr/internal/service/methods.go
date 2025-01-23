@@ -1,12 +1,6 @@
 package service
 
 import (
-	"github.com/MentalMentos/techTaskMetr.git/internal/data/request"
-	"github.com/MentalMentos/techTaskMetr.git/internal/data/response"
-	"github.com/MentalMentos/techTaskMetr.git/internal/models"
-	"github.com/MentalMentos/techTaskMetr.git/internal/repository"
-	"github.com/MentalMentos/techTaskMetr.git/pkg/helpers"
-	"github.com/MentalMentos/techTaskMetr.git/pkg/logger"
 	"github.com/gin-gonic/gin"
 	"time"
 )

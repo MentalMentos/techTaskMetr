@@ -2,11 +2,7 @@ package repository
 
 import (
 	"fmt"
-	"github.com/MentalMentos/techTaskMetr.git/internal/data/request"
-	"github.com/MentalMentos/techTaskMetr.git/internal/data/response"
-	"github.com/MentalMentos/techTaskMetr.git/internal/models"
-	"github.com/MentalMentos/techTaskMetr.git/pkg/helpers"
-	"github.com/MentalMentos/techTaskMetr.git/pkg/logger"
+
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )

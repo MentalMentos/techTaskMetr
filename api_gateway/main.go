@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	alice_router "github.com/MentalMentos/api_gateway/alice-router"
 	"log"
 	"net/http"
 	"os"
