@@ -1,8 +1,8 @@
 package authcontroller
 
 import (
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/data/request"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/service"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/internal/data/request"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/internal/service"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
 	"github.com/gin-gonic/gin"
 	"net/http"

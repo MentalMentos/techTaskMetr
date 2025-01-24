@@ -2,7 +2,7 @@ package repository
 
 import (
 	"context"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/model"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/internal/model"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
 
 	"gorm.io/gorm"

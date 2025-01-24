@@ -1,7 +1,7 @@
 package routes
 
 import (
-	authcontroller "github.com/MentalMentos/techTaskMetr/auth/internal/controller"
+	authcontroller "github.com/MentalMentos/techTaskMetr/pkg/auth"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/controller"
 	"github.com/gin-gonic/gin"
 	"net/http"

@@ -3,12 +3,12 @@ package service
 import (
 	"context"
 	"errors"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/data/request"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/data/response"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/model"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/internal/repository"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/pkg/helpers"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/auth/pkg/utils"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/internal/data/request"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/internal/data/response"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/internal/model"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/internal/repository"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/pkg/helpers"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/pkg/utils"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
 	"golang.org/x/crypto/bcrypt"
 )
