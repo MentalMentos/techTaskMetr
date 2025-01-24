@@ -28,7 +28,7 @@ func main() {
 	// Маршруты
 	router := routes.SetupRouter(authController)
 
-	if err := router.Run(":8882"); err != nil {
+	if err := router.Run(":8881"); err != nil {
 		log.Fatal("Failed to start server:", err)
 	}
 }
