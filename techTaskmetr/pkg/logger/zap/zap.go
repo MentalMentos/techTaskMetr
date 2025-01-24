@@ -1,6 +1,7 @@
 package zaplogger
 
 import (
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/helpers"
 	"github.com/labstack/gommon/log"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"

@@ -1,6 +1,10 @@
 package service
 
 import (
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/data/request"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/data/response"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/repository"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,6 +1,9 @@
 package repository
 
 import (
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/data/response"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/models"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
 	"github.com/gin-gonic/gin"
 	"gorm.io/gorm"
 )
