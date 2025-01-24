@@ -1,7 +1,7 @@
 package service
 
 import (
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/internal/repository"
+	"github.com/MentalMentos/techTaskMetr/auth/internal/repository"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
 )
 

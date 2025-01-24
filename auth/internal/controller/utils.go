@@ -2,7 +2,7 @@ package authcontroller
 
 import (
 	"fmt"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/internal/data/response"
+	"github.com/MentalMentos/techTaskMetr/auth/internal/data/response"
 	"github.com/gin-gonic/gin"
 	"net"
 	"net/http"

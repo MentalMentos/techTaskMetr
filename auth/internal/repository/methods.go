@@ -3,8 +3,8 @@ package repository
 import (
 	"context"
 	"errors"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/internal/data/request"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/auth/internal/model"
+	"github.com/MentalMentos/techTaskMetr/auth/internal/data/request"
+	"github.com/MentalMentos/techTaskMetr/auth/internal/model"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
 
 	"gorm.io/gorm"

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/config"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/config"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/controller"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/models"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/repository"
@@ -32,16 +32,7 @@ func main() {
 	taskRepository := repository.New(db, myLogger)
 	taskService := service.NewService(taskRepository, myLogger)
 	taskController := controller.NewController(taskService, myLogger)
-
-	//todo auth
-	db.Table("users").AutoMigrate(&usermodel.User{})
-
-	authRepository := authrepository.NewRepository(db)
-	authService := authservice.New(authRepository, myLogger)
-	authController := authcontroller.NewAuthController(authService, myLogger)
-	// Маршруты
-	router := routes.SetupRouter(authController, taskController)
-
+	router := routes.SetupRouter(taskController)
 	// Запуск приложения
 	if err := router.Run(":8882"); err != nil {
 		log.Fatal("Failed to start server:", err)
