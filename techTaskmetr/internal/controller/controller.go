@@ -115,7 +115,7 @@ func (controller *Controller) Done(c *gin.Context) {
 		return
 	}
 
-	JsonResponse(c, http.StatusOK, "Tasks created successful", taskResp)
+	JsonResponse(c, http.StatusOK, "Tasks deleted successful", taskResp)
 }
 
 func (controller *Controller) List(c *gin.Context) {

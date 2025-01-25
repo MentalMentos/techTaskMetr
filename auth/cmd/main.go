@@ -14,7 +14,7 @@ import (
 
 func main() {
 	myLogger := zaplogger.New()
-	if err := godotenv.Load("../.env"); err != nil {
+	if err := godotenv.Load(".env"); err != nil {
 		myLogger.Fatal("Error loading .env file", "")
 	}
 	// Инициализация базы данных
