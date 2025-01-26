@@ -6,7 +6,7 @@ import (
 	"net/http"
 )
 
-func SetupRouter(router *gin.Engine) *gin.Engine {
+func SetupRouter(c *gin.Context) *gin.Engine {
 	router := gin.Default()
 	// Приветственное сообщение
 	router.GET("/", func(c *gin.Context) {

@@ -2,18 +2,18 @@ package main
 
 import (
 	"context"
+	"github.com/MentalMentos/techTaskMetr/auth/routes"
 	"log"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
-
-	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	router := gin.Default()
+	c := context.Background()
+	router := routes.SetupRouter(c)
 
 	log.Printf("роутер создался")
 	// Настройка маршрутов
