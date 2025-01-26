@@ -16,7 +16,7 @@ import (
 type Auth interface {
 	Register(ctx context.Context, req request.RegisterUserRequest) (*response.AuthResponse, error)
 	Login(ctx context.Context, req request.LoginRequest) (*response.AuthResponse, error)
-	RefreshToken(ctx context.Context, refreshToken string) (*response.AuthResponse, error)
+	RefreshTokenAndGetAccessToken(ctx context.Context, refreshToken string) (*response.AuthResponse, error)
 	UpdatePassword(ctx context.Context, req request.UpdateUserRequest) (*response.AuthResponse, error)
 }
 
@@ -137,7 +137,7 @@ func (s *AuthService) UpdatePassword(ctx context.Context, req request.UpdateUser
 	}, nil
 }
 
-func (s *AuthService) RefreshToken(ctx context.Context, refreshToken string) (*response.AuthResponse, error) {
+func (s *AuthService) RefreshTokenAndGetAccessToken(ctx context.Context, refreshToken string) (*response.AuthResponse, error) {
 	// Валидация refresh token
 	claims, err := utils.ValidateJWT(refreshToken)
 	if err != nil {

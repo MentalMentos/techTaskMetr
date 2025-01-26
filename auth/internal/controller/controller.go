@@ -82,7 +82,7 @@ func (controller *AuthController) RefreshToken(c *gin.Context) {
 		return
 	}
 
-	authResp, err := controller.authService.RefreshToken(c, userRequest.RefreshToken)
+	authResp, err := controller.authService.RefreshTokenAndGetAccessToken(c, userRequest.RefreshToken)
 	if err != nil {
 		HandleError(c, err)
 		return

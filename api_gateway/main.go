@@ -17,7 +17,7 @@ func main() {
 
 	log.Printf("роутер создался")
 	// Настройка маршрутов
-	alice_router.SetupRouter(router)
+
 	// Запуск сервера
 	srv := &http.Server{
 		Addr:    ":8880",

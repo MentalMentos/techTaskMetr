@@ -10,7 +10,6 @@ import (
 type CreateTaskRequest struct {
 	Title       string `json:"title" binding:"required"`       // Название задачи (обязательно)
 	Description string `json:"description" binding:"required"` // Описание задачи (обязательно)
-	Status      string `json:"status" binding:"required"`      // Статус задачи (обязательно)
 }
 
 func CreateTaskHandler(c *gin.Context) {
@@ -39,7 +38,6 @@ func CreateTaskHandler(c *gin.Context) {
 		"user_id":     userID,
 		"title":       req.Title,
 		"description": req.Description,
-		"status":      req.Status,
 	}
 
 	// Отправляем запрос в микросервис `todo`

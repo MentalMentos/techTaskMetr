@@ -1,11 +1,13 @@
-package alice_router
+package router
 
 import (
+	"github.com/MentalMentos/techTaskMetr/api_gateway/alice-router/handlers"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func SetupRouter(router *gin.Engine) {
+func SetupRouter(router *gin.Engine) *gin.Engine {
+	router := gin.Default()
 	// Приветственное сообщение
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -26,4 +28,5 @@ func SetupRouter(router *gin.Engine) {
 		authRoutes.POST("/update", handlers.UpdateTaskHandler)
 		authRoutes.GET("/list", handlers.ListTasksHandler)
 	}
+	return router
 }

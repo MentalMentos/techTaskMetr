@@ -56,6 +56,7 @@ func (s *TaskService) Update(ctx *gin.Context, req request.UpdateTaskRequest) (*
 		UserID:      req.User_id,
 		Title:       req.Title,
 		Description: req.Description,
+		Status:      req.Status,
 	}
 
 	err = s.repo.Update(ctx, task2)
