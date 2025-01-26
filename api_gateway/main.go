@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"github.com/MentalMentos/techTaskMetr/auth/routes"
+	router_alice "github.com/MentalMentos/techTaskMetr/api_gateway/alice-router"
 	"log"
 	"net/http"
 	"os"
@@ -13,7 +13,7 @@ import (
 
 func main() {
 	c := context.Background()
-	router := routes.SetupRouter(c)
+	router := router_alice.SetupRouter(&c)
 
 	log.Printf("роутер создался")
 	// Настройка маршрутов

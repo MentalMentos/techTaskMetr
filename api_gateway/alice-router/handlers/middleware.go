@@ -46,6 +46,7 @@ func AuthMiddleware(c *gin.Context) {
 
 	// Сохраняем токены и UserID в контексте
 	c.Set("access_token", authResp.AccessToken)
+	c.Set("refresh_token", authResp.RefreshToken)
 	c.Set("user_id", authResp.UserID)
 	c.Next()
 }

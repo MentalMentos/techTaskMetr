@@ -1,12 +1,13 @@
-package router
+package router_alice
 
 import (
+	"context"
 	"github.com/MentalMentos/techTaskMetr/api_gateway/alice-router/handlers"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func SetupRouter(c *gin.Context) *gin.Engine {
+func SetupRouter(c *context.Context) *gin.Engine {
 	router := gin.Default()
 	// Приветственное сообщение
 	router.GET("/", func(c *gin.Context) {
