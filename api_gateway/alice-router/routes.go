@@ -3,12 +3,14 @@ package router_alice
 import (
 	"context"
 	"github.com/MentalMentos/techTaskMetr/api_gateway/alice-router/handlers"
+	pkg "github.com/MentalMentos/techTaskMetr/api_gateway/pkg/jwt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func SetupRouter(c *context.Context) *gin.Engine {
 	router := gin.Default()
+	router.Use(pkg.CheckJWT())
 	// Приветственное сообщение
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
@@ -19,9 +21,7 @@ func SetupRouter(c *context.Context) *gin.Engine {
 	// Группа маршрутов с middleware авторизации
 	authRoutes := router.Group("/alice")
 	authRoutes.Use(handlers.AuthMiddleware) // Подключаем middleware
-	// Ручка для регистрации
-	router.POST("/register", handlers.RegisterUserHandler)
-	router.POST("/login", handlers.LoginUserHandler)
+	authRoutes.POST("register", handlers.RegisterUserHandler)
 	// Ручки задачника
 	{
 		authRoutes.POST("/create", handlers.CreateTaskHandler)
