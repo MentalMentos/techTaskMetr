@@ -1,18 +1,18 @@
 package service
 
 import (
+	"context"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/data/request"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/data/response"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/repository"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
-	"github.com/gin-gonic/gin"
 )
 
 type Task interface {
-	Create(ctx *gin.Context, req request.CreateTaskRequest) (*response.TaskResponse, error)
-	Update(ctx *gin.Context, req request.UpdateTaskRequest) (*response.TaskResponse, error)
-	Done(ctx *gin.Context, req request.DeleteTaskRequest) (*response.TaskResponse, error)
-	List(ctx *gin.Context, user_id int) (*response.AllTasksResponse, error)
+	Create(ctx context.Context, req request.CreateTaskRequest) (*response.TaskResponse, error)
+	Update(ctx context.Context, req request.UpdateTaskRequest) (*response.TaskResponse, error)
+	Done(ctx context.Context, req request.DeleteTaskRequest) (*response.TaskResponse, error)
+	List(ctx context.Context, user_id int) (*response.AllTasksResponse, error)
 }
 
 type Service struct {

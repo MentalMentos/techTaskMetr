@@ -1,13 +1,14 @@
 package service
 
 import (
+	"context"
+	"github.com/MentalMentos/techTaskMetr/api_gateway/pkg/helpers"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/data/request"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/data/response"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/models"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/repository"
-	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/helpers"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
-	"github.com/gin-gonic/gin"
+	"github.com/pkg/errors"
 	"time"
 )
 
@@ -23,13 +24,12 @@ func NewTaskService(repo *repository.Repository, logger logger.Logger) *TaskServ
 	}
 }
 
-func (s *TaskService) Create(ctx *gin.Context, req request.CreateTaskRequest) (*response.TaskResponse, error) {
+func (s *TaskService) Create(ctx context.Context, req request.CreateTaskRequest) (*response.TaskResponse, error) {
 	task := &models.Task{
 		UserID:      req.User_id,
 		Title:       req.Title,
 		Description: req.Description,
 		CreatedAt:   time.Now(),
-		Status:      "false",
 	}
 	err := s.repo.Create(ctx, task)
 	if err != nil {
@@ -42,21 +42,28 @@ func (s *TaskService) Create(ctx *gin.Context, req request.CreateTaskRequest) (*
 		task.Title,
 		task.Description,
 		task.CreatedAt,
-		task.Status,
 		task.UserID,
 	}, nil
 }
 
-func (s *TaskService) Update(ctx *gin.Context, req request.UpdateTaskRequest) (*response.TaskResponse, error) {
+func (s *TaskService) Update(ctx context.Context, req request.UpdateTaskRequest) (*response.TaskResponse, error) {
 	task, err := s.repo.GetByTitle(ctx, req.Title, req.User_id)
 	if err != nil {
 		s.logger.Fatal(helpers.FailedToUpdateElement, "failed to update element in service(get by title)")
 	}
+	if task.UserID != req.User_id {
+		return nil, errors.New("user id not match")
+	}
+	if task.Title != req.Title {
+		return nil, errors.New("title not match")
+	}
+	if task.Title == "" || task.Description == "" {
+		return nil, errors.New("title or description is null")
+	}
 	task2 := &models.Task{
-		UserID:      req.User_id,
-		Title:       req.Title,
-		Description: req.Description,
-		Status:      req.Status,
+		UserID:      task.UserID,
+		Title:       task.Title,
+		Description: task.Description,
 	}
 
 	err = s.repo.Update(ctx, task2)
@@ -67,13 +74,13 @@ func (s *TaskService) Update(ctx *gin.Context, req request.UpdateTaskRequest) (*
 
 	s.logger.Info(helpers.InfoPrefix, "Service updated new user")
 	return &response.TaskResponse{
-		Title:       task.Title,
-		Description: task.Description,
-		CreatedAt:   task.CreatedAt,
+		Title:       task2.Title,
+		Description: task2.Description,
+		CreatedAt:   task2.CreatedAt,
 	}, nil
 }
 
-func (s *TaskService) Done(ctx *gin.Context, req request.DeleteTaskRequest) (*response.TaskResponse, error) {
+func (s *TaskService) Done(ctx context.Context, req request.DeleteTaskRequest) (*response.TaskResponse, error) {
 	task, err := s.repo.GetByTitle(ctx, req.Title, req.User_id)
 	if err != nil {
 		s.logger.Fatal("[ SERVICE_DONE ]", "failed to get element in service by id")
@@ -90,11 +97,10 @@ func (s *TaskService) Done(ctx *gin.Context, req request.DeleteTaskRequest) (*re
 		Title:       task.Title,
 		Description: task.Description,
 		CreatedAt:   task.CreatedAt,
-		Status:      "true",
 	}, nil
 }
 
-func (s *TaskService) List(ctx *gin.Context, user_id int) (*response.AllTasksResponse, error) {
+func (s *TaskService) List(ctx context.Context, user_id int) (*response.AllTasksResponse, error) {
 	tasks, err := s.repo.List(ctx, user_id)
 	if err != nil {
 		s.logger.Fatal("[ SERVICE_LIST ]", helpers.FailedToGetElements)

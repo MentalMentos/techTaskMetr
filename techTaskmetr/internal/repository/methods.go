@@ -30,8 +30,8 @@ func NewTaskRepo(DB *gorm.DB, logger logger.Logger, redis redis.IRedis) *RepoImp
 }
 
 func (r *RepoImpl) Create(ctx context.Context, tx pgx.Tx, m *models.Task) error {
-	_, err := tx.Exec(ctx, "INSERT INTO tasks (title, description, status, user_id) VALUES ($1, $2, 'false', $3);",
-		m.Title, m.Description, m.UserID)
+	_, err := tx.Exec(ctx, "INSERT INTO tasks (title, description, user_id) VALUES ($1, $2);",
+		m.Title, m.Description)
 	if err != nil {
 		// Логирование ошибки при создании транзакции в базе данных и откат транзакции
 		r.logger.Info(helpers.InfoPrefix, helpers.FailedToCreateElement)
@@ -59,14 +59,13 @@ func (r *RepoImpl) Create(ctx context.Context, tx pgx.Tx, m *models.Task) error 
 
 func (r *RepoImpl) Delete(ctx context.Context, m *models.Task) error {
 	if err := r.DB.WithContext(ctx).Delete(&m).Error; err != nil {
-		r.logger.Debug("[  Repository  ]", helpers.FailedToDeleteElement)
+		r.logger.Debug("[  Repository  ]", helpers.RepoDeleteError)
 		return err
 	}
 	r.logger.Info("[  Repository  ]", helpers.Success)
 	return nil
 }
 
-// показывает все запланированные таски
 func (r *RepoImpl) List(ctx context.Context, user_id int) ([]response.TaskResponse, error) {
 	var tasks []response.TaskResponse
 	if err := r.DB.WithContext(ctx).Where("user_id = ?", user_id).Find(&tasks).Error; err != nil {

@@ -3,6 +3,7 @@ package db
 import (
 	"context"
 	"github.com/jackc/pgconn"
+	"github.com/jackc/pgx/v4"
 )
 
 // Handler - функция без доступа к транзакции (оставляем для обычных операций)

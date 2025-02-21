@@ -2,9 +2,10 @@ package pg
 
 import (
 	"context"
-	"github.com/MentalMentos/techFin/internal/clients/db"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/clients/db"
 	"github.com/georgysavva/scany/pgxscan"
 	"github.com/jackc/pgconn"
+	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 	"github.com/pkg/errors"
 )

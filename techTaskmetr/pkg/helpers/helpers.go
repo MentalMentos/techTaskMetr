@@ -11,6 +11,7 @@ const (
 	RepoCacheError               = "FAILED_TO_CACHE_ELEMENT_IN_REDIS"
 	RepoUpdateError              = "FAILED_TO_UPDATE_ELEMENT"
 	RepoFetchError               = "FAILED_TO_FETCH_UPDATED_ELEMENT"
+	RepoDeleteError              = "FAILED_TO_DELETE_ELEMENT"
 	RepoRedisParseError          = "FAILED_TO_PARSE_CACHED_ELEMENT"
 	RepoCreateTransactionError   = "FAILED_TO_CREATE_TRANSACTION"
 	RepoCacheTransactionError    = "FAILED_TO_CACHE_TRANSACTION"

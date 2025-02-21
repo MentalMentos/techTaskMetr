@@ -3,7 +3,7 @@ package go_redis
 import (
 	"context"
 	"fmt"
-	"github.com/MentalMentos/techFin/internal/clients/redis"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/clients/redis"
 	"github.com/goccy/go-json"
 	goRedis "github.com/redis/go-redis/v9"
 	"time"

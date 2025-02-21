@@ -2,8 +2,9 @@ package transaction
 
 import (
 	"context"
-	"github.com/MentalMentos/techFin/internal/clients/db"
-	"github.com/MentalMentos/techFin/internal/clients/db/pg"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/clients/db"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/clients/db/pg"
+	"github.com/jackc/pgx/v4"
 	"github.com/pkg/errors"
 )
 
