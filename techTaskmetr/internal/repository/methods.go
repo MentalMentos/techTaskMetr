@@ -7,6 +7,7 @@ import (
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/data/request"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/data/response"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/models"
+	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/helpers"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
 	"github.com/jackc/pgx/v4"
 	"github.com/pkg/errors"
@@ -34,7 +35,7 @@ func (r *RepoImpl) Create(ctx context.Context, tx pgx.Tx, m *models.Task) error 
 	if err != nil {
 		// Логирование ошибки при создании транзакции в базе данных и откат транзакции
 		r.logger.Info(helpers.InfoPrefix, helpers.FailedToCreateElement)
-		return errors.Wrap(err, helpers.RepoCreateTransactionError)
+		return errors.Wrap(err, helpers)
 	}
 
 	// Создание ключа и объекта для сохранения в Redis
@@ -49,7 +50,7 @@ func (r *RepoImpl) Create(ctx context.Context, tx pgx.Tx, m *models.Task) error 
 	err = r.redisClient.SetObject(ctx, transactionKey, transactionData, time.Hour*24)
 	if err != nil {
 		// Логирование ошибки при сохранении транзакции в кэш
-		r.logger.Info(helpers.RepoPrefix, helpers.RepoCacheTransactionError)
+		r.logger.Info(helpers.Repo, helpers.RepoCacheTransactionError)
 		return errors.Wrap(err, helpers.RepoCacheTransactionError)
 	}
 	r.logger.Info("[  Repository  ]", helpers.Success)
