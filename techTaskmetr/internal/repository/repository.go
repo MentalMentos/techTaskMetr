@@ -6,11 +6,12 @@ import (
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/data/response"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/internal/models"
 	"github.com/MentalMentos/techTaskMetr/techTaskmetr/pkg/logger"
+	"github.com/jackc/pgx/v4"
 	"gorm.io/gorm"
 )
 
 type Task interface {
-	Create(ctx context.Context, m *models.Task) error
+	Create(ctx context.Context, tx pgx.Tx, m *models.Task) error
 	Update(ctx context.Context, m *models.Task) error
 	Delete(ctx context.Context, m *models.Task) error
 	List(ctx context.Context, user_id int) ([]response.TaskResponse, error)
