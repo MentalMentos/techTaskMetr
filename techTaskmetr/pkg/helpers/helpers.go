@@ -1,27 +1,24 @@
 package helpers
 
 const (
-	ServicePrefix             = "[ SERVICE ]"
-	ServiceGetBalanceError    = "FAILED_TO_GET_BALANCE"
-	ServiceUpdateBalanceError = "FAILED_TO_UPDATE_BALANCE"
-	ServiceTransferError      = "FAILED_TO_TRANSFER_FUNDS"
-	ServiceTransactionError   = "FAILED_TO_GET_TRANSACTIONS"
-	ServiceInsufficientFunds  = "INSUFFICIENT_FUNDS"
-	ServiceInvalidAmount      = "INVALID_TRANSFER_AMOUNT"
+	ServicePrefix          = "[ SERVICE ]"
+	ServiceGetElementError = "FAILED_TO_GET_ELEMENT"
+	ServiceUpdateError     = "FAILED_TO_UPDATE_ELEMENT"
+	ServiceDeleteError     = "FAILED_TO_DELETE_ELEMENT"
 
 	RepoPrefix                   = "[ REPO ]"
-	RepoGetBalanceError          = "FAILED_TO_GET_BALANCE_FROM_DB"
-	RepoCacheBalanceError        = "FAILED_TO_CACHE_BALANCE_IN_REDIS"
-	RepoUpdateBalanceError       = "FAILED_TO_UPDATE_BALANCE"
-	RepoFetchBalanceError        = "FAILED_TO_FETCH_UPDATED_BALANCE"
-	RepoRedisParseError          = "FAILED_TO_PARSE_CACHED_BALANCE"
+	RepoGetError                 = "FAILED_TO_GET_ELEMENT_FROM_DB"
+	RepoCacheError               = "FAILED_TO_CACHE_ELEMENT_IN_REDIS"
+	RepoUpdateError              = "FAILED_TO_UPDATE_ELEMENT"
+	RepoFetchError               = "FAILED_TO_FETCH_UPDATED_ELEMENT"
+	RepoRedisParseError          = "FAILED_TO_PARSE_CACHED_ELEMENT"
 	RepoCreateTransactionError   = "FAILED_TO_CREATE_TRANSACTION"
 	RepoCacheTransactionError    = "FAILED_TO_CACHE_TRANSACTION"
 	RepoGetTransactionsError     = "FAILED_TO_GET_TRANSACTIONS"
 	RepoScanTransactionError     = "FAILED_TO_SCAN_TRANSACTION"
 	RepoIterateTransactionsError = "FAILED_TO_ITERATE_TRANSACTIONS"
 
-	HandlerPrefix = "[ HANDL ]"
+	HandlerPrefix = "[ HANDLERS ]"
 
 	AppPrefix = " [ APP ] "
 
