@@ -50,7 +50,7 @@ func (r *RepoImpl) Create(ctx context.Context, tx pgx.Tx, m *models.Task) error 
 	err = r.redisClient.SetObject(ctx, transactionKey, transactionData, time.Hour*24)
 	if err != nil {
 		// Логирование ошибки при сохранении транзакции в кэш
-		r.logger.Info(helpers.Repo, helpers.RepoCacheTransactionError)
+		r.logger.Info(helpers.RepoPrefix, helpers.RepoCacheTransactionError)
 		return errors.Wrap(err, helpers.RepoCacheTransactionError)
 	}
 	r.logger.Info("[  Repository  ]", helpers.Success)
