@@ -21,7 +21,7 @@ func SetupRouter(c *context.Context) *gin.Engine {
 	// Группа маршрутов с middleware авторизации
 	authRoutes := router.Group("/alice")
 	authRoutes.Use(handlers.AuthMiddleware) // Подключаем middleware
-	authRoutes.POST("register", handlers.RegisterUserHandler)
+	authRoutes.POST("/register", handlers.RegisterUserHandler)
 	// Ручки задачника
 	{
 		authRoutes.POST("/create", handlers.CreateTaskHandler)
