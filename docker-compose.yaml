@@ -18,7 +18,7 @@ services:
   migrator:
     build:
       context: techTaskmetr
-      dockerfile: migration.Dockerfile
+      dockerfile: Dockerfile
     depends_on:
       pg:
         condition: service_healthy
@@ -29,6 +29,7 @@ services:
   backend:
     build:
       context: techTaskmetr
+      dockerfile: .Dockerfile
     environment:
       DB_HOST: pg
       DB_PORT: 5432

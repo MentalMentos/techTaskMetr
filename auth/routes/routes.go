@@ -14,11 +14,11 @@ func SetupRouter(authController *authcontroller.AuthController) *gin.Engine {
 		ctx.JSON(http.StatusOK, "Welcome Home!")
 	})
 
-	router.GET("/ip", func(c *gin.Context) {
-		// Получаем IP клиента
-		clientIP := c.ClientIP() // Автоматически извлекает IP с учётом заголовков X-Forwarded-For, X-Real-IP
-		c.JSON(200, gin.H{"ip": clientIP})
-	})
+	//router.GET("/ip", func(c *gin.Context) {
+	//	// Получаем IP клиента
+	//	clientIP := c.ClientIP() // Автоматически извлекает IP с учётом заголовков X-Forwarded-For, X-Real-IP
+	//	c.JSON(200, gin.H{"ip": clientIP})
+	//})
 
 	authRoutes := router.Group("/auth")
 	{
