@@ -7,6 +7,5 @@ type Task struct {
 	Title       string    `gorm:"title" json:"title"`
 	Description string    `gorm:"description" json:"description"`
 	CreatedAt   time.Time `gorm:"created_at" json:"created_at"`
-	Status      string    `gorm:"status" json:"status"`
 	UserID      int       `gorm:"user_id" json:"user_id"`
 }

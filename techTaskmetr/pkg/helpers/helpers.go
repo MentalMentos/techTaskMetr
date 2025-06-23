@@ -1,25 +1,29 @@
 package helpers
 
 const (
-	FailedToCreateElement = "FAILED_TO_CREATE_ELEMENT" // FailedToCreateElement contains error message for failed to create element
-	FailedToDeleteElement = "FAILED_TO_DELETE_ELEMENT" // FailedToDeleteElement contains error message for failed to delete element
-	FailedToGetElements   = "FAILED_TO_GET_ELEMENTS"   // FailedToGetElements contains error message for failed to get elements
-	FailedToUpdateElement = "FAILED_TO_UPDATE_ELEMENT"
+	ServicePrefix          = "[ SERVICE ]"
+	ServiceGetElementError = "FAILED_TO_GET_ELEMENT"
+	ServiceUpdateError     = "FAILED_TO_UPDATE_ELEMENT"
+	ServiceDeleteError     = "FAILED_TO_DELETE_ELEMENT"
 
-	JSONParseError        = "JSON_PARSE_ERROR" // JSONParseError contains error message for failed to parse json
-	DefaultValueForFields = "NOT FOUND"        // DefaultValueForFields contains default value for fields
+	RepoPrefix                   = "[ REPO ]"
+	RepoGetError                 = "FAILED_TO_GET_ELEMENT_FROM_DB"
+	RepoCacheError               = "FAILED_TO_CACHE_ELEMENT_IN_REDIS"
+	RepoUpdateError              = "FAILED_TO_UPDATE_ELEMENT"
+	RepoFetchError               = "FAILED_TO_FETCH_UPDATED_ELEMENT"
+	RepoDeleteError              = "FAILED_TO_DELETE_ELEMENT"
+	RepoRedisParseError          = "FAILED_TO_PARSE_CACHED_ELEMENT"
+	RepoCreateTransactionError   = "FAILED_TO_CREATE_TRANSACTION"
+	RepoCacheTransactionError    = "FAILED_TO_CACHE_TRANSACTION"
+	RepoGetTransactionsError     = "FAILED_TO_GET_TRANSACTIONS"
+	RepoScanTransactionError     = "FAILED_TO_SCAN_TRANSACTION"
+	RepoIterateTransactionsError = "FAILED_TO_ITERATE_TRANSACTIONS"
 
-	AppPrefix      = " [ APP ] "      // AppPrefix contains app prefix
-	ResponsePrefix = " [ RESPONSE ] " // ResponsePrefix contains response prefix
-	InfoPrefix     = " INFO "         // InfoPrefix contains info prefix
-	Success        = "SUCCESS"        // Success contains success message
-	RequestError   = "REQUEST_ERROR"  // RequestError contains error message for failed to error
-	StatusPrefix   = " STATUS "       // StatusPrefix contains status prefix
+	HandlerPrefix = "[ HANDLERS ]"
 
-	UnmarshalError = "UNMARSHAL_ERROR" // UnmarshalError contains error message for unmarshal error
-	ReadBodyError  = "READ_BODY_ERROR" // ReadBodyError contains error message for read body error
+	AppPrefix = " [ APP ] "
 
-	PgPrefix            = " [ POSTGRES ] "                     // PgPrefix contains database prefix for logs
+	PgPrefix            = " [ POSTGRES ] "
 	ReconnectDB         = "RECONNECTING TO DATABASE..."        // ReconnectDB contains reconnect db message
 	DisconnectDB        = "DISCONNECTED FROM DATABASE"         // DisconnectDB contains disconnect db message
 	PgConnectFailed     = "FAILED TO CONNECT TO DATABASE"      // PgConnectFailed contains error message for failed to connect to database
